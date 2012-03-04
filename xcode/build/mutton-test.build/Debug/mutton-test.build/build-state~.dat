@@ -1,85 +1,0 @@
-Tmutton-test
-v4
-r1
-cCheck dependencies
-cProcessPCH /var/folders/9j/mxvh4fz1059bg82dqcbp3vcm0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/mutton-test-Prefix-gmibcruheaubcobpxicfnvuhhfyc/mutton-test-Prefix.pch.pth mutton-test/mutton-test-Prefix.pch normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/mutton-test.build/Debug/mutton-test.build/Objects-normal/x86_64/main.o /Users/alexgordon/Temporary/mutton/xcode/mutton-test/../../build/test/main.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cLd /Users/alexgordon/Temporary/mutton/xcode/build/Debug/mutton-test normal x86_64
-
-N/Developer/SDKs/MacOSX10.7.sdk
-c000000004EA9EFA600000000000000EE
-t1319759782
-s238
-
-N/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/Foundation.framework/Foundation
-c000000004E7AD70300000000000ADF9C
-t1316673283
-s712604
-
-N/Users/alexgordon/Temporary/mutton/xcode/build/Debug/mutton-test
-t2
-s0
-
-N/Users/alexgordon/Temporary/mutton/xcode/build/mutton-test.build/Debug/mutton-test.build/Objects-normal/x86_64/main.o
-t2
-s0
-
-N/Users/alexgordon/Temporary/mutton/xcode/build/mutton-test.build/Debug/mutton-test.build/Objects-normal/x86_64/mutton-test.LinkFileList
-c000000004F53C34E0000000000000076
-t1330889550
-s118
-
-N/Users/alexgordon/Temporary/mutton/xcode/mutton-test/../../build/test/main.m
-c00000000000000000000000000000000
-t2
-s0
-
-N/Users/alexgordon/Temporary/mutton/xcode/mutton-test/mutton-test-Prefix.pch
-c000000004F53B23C00000000000000A3
-t1330885180
-s163
-
-N/var/folders/9j/mxvh4fz1059bg82dqcbp3vcm0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/mutton-test-Prefix-gmibcruheaubcobpxicfnvuhhfyc/mutton-test-Prefix.pch.pth
-t1330885519
-s8143692
-
-CBuild AST from /Users/alexgordon/Temporary/mutton/xcode/mutton-test/../../build/test/main.m
-r0
-
-CCheck dependencies
-r0
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependenciesddcddfcefa03b541^eca5f9cefa03b541^---0#1#0#--18"Check dependencies36"46A6A560-BD37-46AE-BF81-B0F830FAE682-
-
-CCompileC build/mutton-test.build/Debug/mutton-test.build/Objects-normal/x86_64/main.o /Users/alexgordon/Temporary/mutton/xcode/mutton-test/../../build/test/main.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s352582350.985935
-e352582351.960153
-r0
-xCompileC
-xbuild/mutton-test.build/Debug/mutton-test.build/Objects-normal/x86_64/main.o
-x/Users/alexgordon/Temporary/mutton/xcode/mutton-test/../../build/test/main.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-oclang: error: no such file or directory: '/Users/alexgordon/Temporary/mutton/xcode/mutton-test/../../build/test/main.m'
-oclang: error: no input files
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection84"Compile /Users/alexgordon/Temporary/mutton/xcode/mutton-test/../../build/test/main.m4487fccefa03b541^21ccf5cffa03b541^-206"clang: error: no such file or directory: '/Users/alexgordon/Temporary/mutton/xcode/mutton-test/../../build/test/main.m'clang: error: no input filesCommand /Developer/usr/bin/clang failed with exit code 11(21%IDEActivityLogMessage2@56"Command /Developer/usr/bin/clang failed with exit code 1-352582351#4294967295#0#-2#--20"Clang LLVM 1.0 Error--0#0#0#-19%DVTDocumentLocation3@92"file://localhost/Users/alexgordon/Temporary/mutton/xcode/mutton-test/../../build/test/main.m000000b2cd7adbc1^2302"CompileC build/mutton-test.build/Debug/mutton-test.build/Objects-normal/x86_64/main.o mutton-test/../../build/test/main.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/alexgordon/Temporary/mutton/xcode    setenv LANG en_US.US-ASCII    /Developer/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/alexgordon/Temporary/mutton/xcode/build/mutton-test.build/Debug/mutton-test.build/mutton-test-generated-files.hmap -I/Users/alexgordon/Temporary/mutton/xcode/build/mutton-test.build/Debug/mutton-test.build/mutton-test-own-target-headers.hmap -I/Users/alexgordon/Temporary/mutton/xcode/build/mutton-test.build/Debug/mutton-test.build/mutton-test-all-target-headers.hmap -iquote /Users/alexgordon/Temporary/mutton/xcode/build/mutton-test.build/Debug/mutton-test.build/mutton-test-project-headers.hmap -I/Users/alexgordon/Temporary/mutton/xcode/build/Debug/include -I../build -I/Users/alexgordon/Temporary/mutton/xcode/build/mutton-test.build/Debug/mutton-test.build/DerivedSources/x86_64 -I/Users/alexgordon/Temporary/mutton/xcode/build/mutton-test.build/Debug/mutton-test.build/DerivedSources -F/Users/alexgordon/Temporary/mutton/xcode/build/Debug -include /var/folders/9j/mxvh4fz1059bg82dqcbp3vcm0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/mutton-test-Prefix-gmibcruheaubcobpxicfnvuhhfyc/mutton-test-Prefix.pch -MMD -MT dependencies -MF /Users/alexgordon/Temporary/mutton/xcode/build/mutton-test.build/Debug/mutton-test.build/Objects-normal/x86_64/main.d -c /Users/alexgordon/Temporary/mutton/xcode/mutton-test/../../build/test/main.m -o /Users/alexgordon/Temporary/mutton/xcode/build/mutton-test.build/Debug/mutton-test.build/Objects-normal/x86_64/main.o36"0B40C31A-41CA-4411-9208-0D53F35BD9A1-
-
-CLd /Users/alexgordon/Temporary/mutton/xcode/build/Debug/mutton-test normal x86_64
-s352582351.966601
-e352582352.134273
-r0
-xLd
-x/Users/alexgordon/Temporary/mutton/xcode/build/Debug/mutton-test
-xnormal
-xx86_64
-old: file not found: /Users/alexgordon/Temporary/mutton/xcode/build/mutton-test.build/Debug/mutton-test.build/Objects-normal/x86_64/main.o
-oclang: error: linker command failed with exit code 1 (use -v to see invocation)
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection69"Link /Users/alexgordon/Temporary/mutton/xcode/build/Debug/mutton-testc286f7cffa03b541^2d6022d0fa03b541^-195"ld: file not found: /Users/alexgordon/Temporary/mutton/xcode/build/mutton-test.build/Debug/mutton-test.build/Objects-normal/x86_64/main.oCommand /Developer/usr/bin/clang failed with exit code 12(21%IDEActivityLogMessage2@133"File not found: /Users/alexgordon/Temporary/mutton/xcode/build/mutton-test.build/Debug/mutton-test.build/Objects-normal/x86_64/main.o-352582352#0#138#-0#-23%DVTTextDocumentLocation3@-0000000000000000^4294967295#4294967295#4294967295#4294967295#4294967295#0#31"Apple Mach-O Linker (ld) Notice--2@56"Command /Developer/usr/bin/clang failed with exit code 1-352582352#4294967295#0#-2#--30"Apple Mach-O Linker (ld) Error--0#0#0#--596"Ld build/Debug/mutton-test normal x86_64    cd /Users/alexgordon/Temporary/mutton/xcode    setenv MACOSX_DEPLOYMENT_TARGET 10.7    /Developer/usr/bin/clang -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.7.sdk -L/Users/alexgordon/Temporary/mutton/xcode/build/Debug -F/Users/alexgordon/Temporary/mutton/xcode/build/Debug -filelist /Users/alexgordon/Temporary/mutton/xcode/build/mutton-test.build/Debug/mutton-test.build/Objects-normal/x86_64/mutton-test.LinkFileList -mmacosx-version-min=10.7 -fobjc-arc -framework Foundation -o /Users/alexgordon/Temporary/mutton/xcode/build/Debug/mutton-test36"A9A81663-3CEF-4CEE-9BF2-B4E34F639847-
-
-CProcessPCH /Users/alexgordon/Library/Developer/Xcode/DerivedData/mutton-test-djmrnpqxkermztadjzofaddcmlpj/Index/PrecompiledHeaders/mutton-test-Prefix-fsfoznskgvortzgjdsblpaptwsbc_ast/mutton-test-Prefix.pch.pth mutton-test/mutton-test-Prefix.pch normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
-r0
-
-CProcessPCH /var/folders/9j/mxvh4fz1059bg82dqcbp3vcm0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/mutton-test-Prefix-gmibcruheaubcobpxicfnvuhhfyc/mutton-test-Prefix.pch.pth mutton-test/mutton-test-Prefix.pch normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-r0
-
