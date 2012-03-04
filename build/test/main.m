@@ -21,6 +21,16 @@ static void test_first_iter() {
 }
 
 
+#pragma mark initial (iter)
+static void test_initial_iter() {
+    ass  ( !initial(nil) );
+    asseq(@[], initial(@[]) );
+    asseq(@[], initial(@[foo]) );
+    asseq(@[foo], initial(@[foo, bar]) );
+    asseq(@[foo, bar], initial(@[foo, bar, baz]) );
+}
+
+
 #pragma mark isKind (object)
 static void test_isKind_object() {
     ass( isKind(foo, @"NSString") );
@@ -77,13 +87,36 @@ static void test_responds_object() {
 }
 
 
+#pragma mark reverse (iter)
+static void test_reverse_iter() {
+    ass  ( !reverse(nil) );
+    asseq(@[], reverse(@[]) );
+    asseq(@[foo], reverse(@[foo]) );
+    asseq(@[bar, foo], reverse(@[foo, bar]) );
+    asseq(@[baz, bar, foo], reverse(@[foo, bar, baz]) );
+}
+
+
+#pragma mark tail (iter)
+static void test_tail_iter() {
+    ass  ( !tail(nil) );
+    asseq(@[], tail(@[]) );
+    asseq(@[], tail(@[foo]) );
+    asseq(@[bar], tail(@[foo, bar]) );
+    asseq(@[bar, baz], tail(@[foo, bar, baz]) );
+}
+
+
 #pragma mark main
 int main(void) {
     test_count_iter();
     test_first_iter();
+    test_initial_iter();
     test_isKind_object();
     test_last_iter();
     test_map_iter();
     test_objectAt_iter();
     test_responds_object();
+    test_reverse_iter();
+    test_tail_iter();
 }

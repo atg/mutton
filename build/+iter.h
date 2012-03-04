@@ -23,6 +23,26 @@ static id first(Iter it) {
     return nil;
 }
 
+/// Return all the elements of a list except the last one.
+// (in iter)
+static id initial(Iter it) {
+    if (!it)
+        return nil;
+
+    // TODO: Add a specialization for NSArray using subarrayWithRange:
+
+    // We don't know when the iterable ends, so we just have to add everything to an array, then remove the last object
+    yield_start;
+    BOOL isFirst = YES;
+    for (id x in it) {
+        yield(x);
+    }
+
+    if ([mutton_yield_v_ count])
+        [mutton_yield_v_ removeLastObject];
+    yield_stop;
+}
+
 /// Find the last object of the iterable, or nil if it's empty.
 // (in iter)
 static id last(Iter it) {
@@ -76,6 +96,37 @@ static id objectAt(Iter it, long n) {
     }
 
     return nil;
+}
+
+/// Reverse an iterable.
+// (in iter)
+static id reverse(Iter it) {
+    if (!it)
+        return nil;
+
+    if (responds(it, @selector(reverseObjectEnumerator)))
+        return iter([(NSArray*)it reverseObjectEnumerator]);
+    else
+        return reverse(iter(it));
+}
+
+/// Extract the elements after the head of a list.
+// (in iter)
+static id tail(Iter it) {
+    if (!it)
+        return nil;
+
+    // TODO: Add a specialization for NSArray using subarrayWithRange:
+
+    yield_start;
+    BOOL isFirst = YES;
+    for (id x in it) {
+        if (isFirst)
+            isFirst = NO;
+        else
+            yield(x);
+    } 
+    yield_stop;
 }
 
 #include "-support.h"

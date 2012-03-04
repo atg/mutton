@@ -9,7 +9,7 @@ static ___ %s(___) {
 
 
 test {
-    ___
+    // TODO: Implement me!
 }
 
 #include "-support.h"
