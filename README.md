@@ -4,7 +4,7 @@ Mutton makes ObjC more consise and less error-prone by giving it some common fun
 
 ## Naming
 
-We usually defer to `Haskell` when deciding what to call things. We do change the argument order quite a bit though, to suit the expectations of Objective-C programmers (Verb-Subject-Object instead of Verb-Object-Subject).
+We usually defer to Haskell when deciding what to call things. We do change the argument order quite a bit though, to suit the expectations of Objective-C programmers (Verb-Subject-Object instead of Verb-Object-Subject).
 
 ## Compatibility
 
