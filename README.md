@@ -18,8 +18,9 @@ Alternatively, each function is in its own header file for development purposes,
 
 Ideas:
 
-* Check wishlist.txt for desired functions.
-* Check the issue tracker.
+* Finish a function in `untested`, by fixing bugs or adding tests.
+* Check wishlist.txt a desired function and implement it. Run `python compile.py create <+modulename> <+functionname>`.
+* Check the issue tracker and fix a bug.
 * Fix a TODO somewhere
 * More tests are always welcome.
 

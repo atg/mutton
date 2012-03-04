@@ -63,6 +63,8 @@ def put(p, content):
     f.close()
 
 for miscfile in miscfiles:
+    if miscfile['name'] == 'support':
+        continue
     put('+%s.h' % miscfile['name'], miscfile['content'])
     muttonh += '#import "+%s.h"\n' % miscfile['name']
 
