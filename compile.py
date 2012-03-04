@@ -45,7 +45,8 @@ if unstable:
     allfiles.extend(list(readfiles('untested', True)))
 
 processedfiles = allfiles[:]
-allfiles.extend(list(readfiles('tested-misc', False)))
+miscfiles = list(readfiles('tested-misc', False))
+allfiles.extend(miscfiles)
 
 modules = sorted(set(f['module'] for f in processedfiles))
 muttonh = '''// mutton: functional programming tools for Objective-C
@@ -86,6 +87,9 @@ for pf in spfs:
     testm += '    test_%s_%s();\n' % (pf['name'], pf['module'])
 testm += '}\n'
 
+for miscfile in miscfiles:
+    put('+%s.h' % miscfile['name'], miscfile['content'])
+
 put('test/main.m', testm)
 
-pprint(allfiles)
+# pprint(allfiles)

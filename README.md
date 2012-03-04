@@ -25,7 +25,7 @@ Ideas:
 
 I'm [@alextgordon](http://twitter.com/alextgordon) if you want to ask me something. Don't bother with GitHub's messaging system: I have 680 unread notifications.
 
-Oh, and could you please run `compile.py` (with no arguments) before submitting a pull request? Makes my job a lot easier.
+Note that there is a pre-commit hook that runs `compile.py`, which will clobber anything in build and replace it with a fresh **stable** compilation.
 
 ## License
 
