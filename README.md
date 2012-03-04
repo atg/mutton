@@ -4,7 +4,7 @@ Mutton makes ObjC more consise and less error-prone by giving it some common fun
 
 ## Usage
 
-The `build/` directory contains an up-to-date *stable* snapshot of Mutton.
+The `mutton/` directory contains an up-to-date *stable* snapshot of Mutton.
 
 Add it to your include path somehow, or copy the files out of it, then do `#import "mutton.h"`.
 
@@ -25,7 +25,7 @@ All the Python scripts require Python 2.7. You're using 10.7+, right?
 
 Ideas:
 
-* Finish a function in `untested`, by fixing bugs or adding tests.
+* Finish a function in `source/unstable`, by fixing bugs or adding tests.
 * Check wishlist.txt a desired function and implement it. Run `python createfile.py <+modulename> <+functionname>`.
 * Check the issue tracker and fix a bug.
 * Fix a TODO somewhere
@@ -33,7 +33,7 @@ Ideas:
 
 I'm [@alextgordon](http://twitter.com/alextgordon) if you want to ask me something. Don't bother with GitHub's messaging system: I have 680 unread notifications.
 
-Note that there is a pre-commit hook that runs `compile.py`, which will clobber anything in build and replace it with a fresh **stable** compilation.
+Note that there is a pre-commit hook that runs `compile.py`, which will clobber any previous build and replace it with a fresh **stable** aggregation.
 
 ## Naming
 
