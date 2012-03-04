@@ -1,6 +1,5 @@
 #include "+support.h"
 
-
 /// Wraps -respondsToSelector
 // (in object)
 static BOOL responds(id obj, SEL sel) {

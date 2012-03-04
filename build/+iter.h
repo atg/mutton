@@ -1,3 +1,4 @@
+#import "+object.h"
 #import "+type.h"
 
 #import <Foundation/Foundation.h>
@@ -45,6 +46,25 @@ static id initial(Iter it) {
     yield_stop;
 }
 
+/// Convert a general purpose iterable to an NSArray*
+// (in iter)
+static NSArray* iter(Iter it) {
+    if (!it)
+        return nil;
+
+    if (isKind(it, [NSMutableArray class]))
+        return [(NSMutableArray*)it copy];
+
+    // If it's a non-mutable array, we're probably OK to not copy it
+    if (isKind(it, [NSArray class]))
+        return (NSArray*)it;
+
+    yield_start;
+    for (id x in it) {
+        yield(x);
+    }
+    yield_stop;
+}
 /// Find the last object of the iterable, or nil if it's empty.
 // (in iter)
 static id last(Iter it) {
@@ -78,15 +98,12 @@ static id objectAt(Iter it, long n) {
         return nil;
     if (n < 0)
         return nil;
-
-    BOOL hasObjectAtIndex = responds(it, @selector(objectAtIndex:));
-    BOOL hasCount = responds(it, @selector(count));
-
-    if (hasCount) {
-        if (n >= [it count])
+    
+    if (responds(it, @selector(count))) {
+        if (n >= [(NSArray*)it count])
             return nil;
-        if (hasObjectAtIndex) {
-            return [it objectAtIndex:n];
+        if (responds(it, @selector(objectAtIndex:))) {
+            return [(NSArray*)it objectAtIndex:n];
         }
     }
 
@@ -102,6 +119,7 @@ static id objectAt(Iter it, long n) {
 
 /// Reverse an iterable.
 // (in iter)
+// (after iter)
 static id reverse(Iter it) {
     if (!it)
         return nil;

@@ -1,5 +1,7 @@
-#include "+support.h"
 #import "+type.h"
+#import "+object.h"
+
+#include "+support.h"
 
 /// Find the number of objects in an array or iterable.
 // (in iter)
@@ -17,10 +19,10 @@ static long count(Iter it) {
 
 test {
     ass  ( !count(nil) );
-    ass  ( !count(@[]) );
-    ass  ( 1 == count(@[foo]) );
-    ass  ( 2 == count(@[foo, bar]) );
-    ass  ( 3 == count(@[foo, bar, baz]) );
+    ass  ( !count(list()) );
+    ass  ( 1 == count(list(foo)) );
+    ass  ( 2 == count(list(foo, bar)) );
+    ass  ( 3 == count(list(foo, bar, baz)) );
 }
 
 #include "+unsupport.h"

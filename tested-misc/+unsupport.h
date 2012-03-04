@@ -1,4 +1,5 @@
 #ifdef MUTTON_SUPPORT
+#undef MUTTON_SUPPORT
 #undef test
 #undef foo
 #undef bar

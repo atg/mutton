@@ -1,6 +1,5 @@
-template = """#include "+support.h"
-#import "+type.h"
-
+template = """#import "+type.h"
+#include "+support.h"
 
 /// ___
 // (in %s)

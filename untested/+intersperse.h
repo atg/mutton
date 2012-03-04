@@ -1,6 +1,5 @@
 #include "+support.h"
 
-
 /// A bit like componentsJoinedByString: but with general purpose iterables instead of strings.
 // (in iter)
 static NSArray* intersperse(Iter it) {
@@ -10,10 +9,10 @@ static NSArray* intersperse(Iter it) {
 
 test {
     ass  (! intersperse(nil, foo) );
-    asseq(@[], intersperse(@[], foo) );
-    asseq(@[bar], intersperse(@[bar], foo) );
-    asseq(@[foo, foo, bar], intersperse(@[foo, bar], foo) );
-    asseq(@[foo, foo, bar, foo, baz], intersperse(@[foo, bar, baz], foo) );
+    asseq(list(), intersperse(list(), foo) );
+    asseq(list(bar), intersperse(list(bar), foo) );
+    asseq(list(foo, foo, bar), intersperse(list(foo, bar), foo) );
+    asseq(list(foo, foo, bar, foo, baz), intersperse(list(foo, bar, baz), foo) );
 }
 
 #include "+unsupport.h"

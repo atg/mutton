@@ -1,6 +1,6 @@
-#include "+support.h"
 #import "+type.h"
 
+#include "+support.h"
 
 /// Return all the elements of a list except the last one.
 // (in iter)
@@ -25,10 +25,10 @@ static id initial(Iter it) {
 
 test {
     ass  ( !initial(nil) );
-    asseq(@[], initial(@[]) );
-    asseq(@[], initial(@[foo]) );
-    asseq(@[foo], initial(@[foo, bar]) );
-    asseq(@[foo, bar], initial(@[foo, bar, baz]) );
+    asseq(list(), initial(list()) );
+    asseq(list(), initial(list(foo)) );
+    asseq(list(foo), initial(list(foo, bar)) );
+    asseq(list(foo, bar), initial(list(foo, bar, baz)) );
 }
 
 #include "+unsupport.h"

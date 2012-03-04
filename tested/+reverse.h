@@ -1,9 +1,11 @@
-#include "+support.h"
 #import "+type.h"
+#import "+object.h"
 
+#include "+support.h"
 
 /// Reverse an iterable.
 // (in iter)
+// (after iter)
 static id reverse(Iter it) {
     if (!it)
         return nil;
@@ -17,10 +19,10 @@ static id reverse(Iter it) {
 
 test {
     ass  ( !reverse(nil) );
-    asseq(@[], reverse(@[]) );
-    asseq(@[foo], reverse(@[foo]) );
-    asseq(@[bar, foo], reverse(@[foo, bar]) );
-    asseq(@[baz, bar, foo], reverse(@[foo, bar, baz]) );
+    asseq(list(), reverse(list()) );
+    asseq(list(foo), reverse(list(foo)) );
+    asseq(list(bar, foo), reverse(list(foo, bar)) );
+    asseq(list(baz, bar, foo), reverse(list(foo, bar, baz)) );
 }
 
 #include "+unsupport.h"

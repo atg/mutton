@@ -1,6 +1,6 @@
-#include "+support.h"
 #import "+type.h"
 
+#include "+support.h"
 
 /// map(xs, f) is the list obtained by applying f to each element of xs
 // (in iter)
@@ -17,8 +17,8 @@ static NSArray* map(Iter it, Mapping f) {
 
 test {
     ass  ( !map(nil, muttoupper) );
-    asseq( @[@"FOO", @"BAR", @"WOBBLE"],
-        map(@[@"foo", @"bar", @"wobble"], muttoupper) );
+    asseq( list(@"FOO", @"BAR", @"WOBBLE"),
+        map(list(@"foo", @"bar", @"wobble"), muttoupper) );
 }
 
 #include "+unsupport.h"

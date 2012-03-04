@@ -37,6 +37,7 @@ def readfiles(dirname, shouldParse = False):
             d['description'] = re.findall(r'/// ([^\)]+)', content)[0]
             d['definition'] = re.findall(r'(/// [\s\S]+)\ntest \{', content)[0]
             d['test'] = re.findall(r'\ntest (\{[\s\S]+\})', content)[0]
+            d['afters'] = set(re.findall(r'// \(after ([^\)]+)\)', content))
             
         yield d
 
@@ -44,7 +45,17 @@ allfiles = list(readfiles('tested', True))
 if unstable:
     allfiles.extend(list(readfiles('untested', True)))
 
+def aftercmp(a, b):
+    if a['name'] in b['afters']:
+        return -1
+    elif a['name'] in b['afters']:
+        return 1
+    else:
+        return cmp(a['name'], b['name'])
+
 processedfiles = allfiles[:]
+processedfiles.sort(aftercmp)
+
 miscfiles = list(readfiles('tested-misc', False))
 allfiles.extend(miscfiles)
 

@@ -1,6 +1,6 @@
-#include "+support.h"
 #import "+type.h"
 
+#include "+support.h"
 
 /// Find the first object of the iterable, or nil if it's empty.
 // (in iter)
@@ -14,9 +14,9 @@ static id first(Iter it) {
 
 test {
     ass  ( !first(nil) );
-    ass  ( !first(@[]) );
-    asseq( bar, first(@[bar]) );
-    asseq( foo, first(@[foo, bar, baz]) );
+    ass  ( !first(list()) );
+    asseq( bar, first(list(bar)) );
+    asseq( foo, first(list(foo, bar, baz)) );
 }
 
 #include "+unsupport.h"

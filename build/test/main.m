@@ -5,29 +5,29 @@
 #pragma mark count (iter)
 static void test_count_iter() {
     ass  ( !count(nil) );
-    ass  ( !count(@[]) );
-    ass  ( 1 == count(@[foo]) );
-    ass  ( 2 == count(@[foo, bar]) );
-    ass  ( 3 == count(@[foo, bar, baz]) );
+    ass  ( !count(list()) );
+    ass  ( 1 == count(list(foo)) );
+    ass  ( 2 == count(list(foo, bar)) );
+    ass  ( 3 == count(list(foo, bar, baz)) );
 }
 
 
 #pragma mark first (iter)
 static void test_first_iter() {
     ass  ( !first(nil) );
-    ass  ( !first(@[]) );
-    asseq( bar, first(@[bar]) );
-    asseq( foo, first(@[foo, bar, baz]) );
+    ass  ( !first(list()) );
+    asseq( bar, first(list(bar)) );
+    asseq( foo, first(list(foo, bar, baz)) );
 }
 
 
 #pragma mark initial (iter)
 static void test_initial_iter() {
     ass  ( !initial(nil) );
-    asseq(@[], initial(@[]) );
-    asseq(@[], initial(@[foo]) );
-    asseq(@[foo], initial(@[foo, bar]) );
-    asseq(@[foo, bar], initial(@[foo, bar, baz]) );
+    asseq(list(), initial(list()) );
+    asseq(list(), initial(list(foo)) );
+    asseq(list(foo), initial(list(foo, bar)) );
+    asseq(list(foo, bar), initial(list(foo, bar, baz)) );
 }
 
 
@@ -44,20 +44,29 @@ static void test_isKind_object() {
 }
 
 
+#pragma mark iter (iter)
+static void test_iter_iter() {
+    ass  ( !iter(nil) );
+    asseq( list(), iter(list()) );
+    asseq( list(foo, bar, baz), iter(list(foo, bar, baz)) );
+    asseq( list(baz, bar, foo), iter([list(foo, bar, baz) reverseObjectEnumerator]) );
+}
+
+
 #pragma mark last (iter)
 static void test_last_iter() {
     ass  ( !last(nil) );
-    ass  ( !last(@[]) );
-    asseq( bar, last(@[bar]) );
-    asseq( baz, last(@[foo, bar, baz]) );
+    ass  ( !last(list()) );
+    asseq( bar, last(list(bar)) );
+    asseq( baz, last(list(foo, bar, baz)) );
 }
 
 
 #pragma mark map (iter)
 static void test_map_iter() {
     ass  ( !map(nil, muttoupper) );
-    asseq( @[@"FOO", @"BAR", @"WOBBLE"],
-        map(@[@"foo", @"bar", @"wobble"], muttoupper) );
+    asseq( list(@"FOO", @"BAR", @"WOBBLE"),
+        map(list(@"foo", @"bar", @"wobble"), muttoupper) );
 }
 
 
@@ -67,15 +76,15 @@ static void test_objectAt_iter() {
     ass  ( !objectAt(nil, 1) );
     ass  ( !objectAt(nil, -1) );
     
-    asseq(foo, objectAt(@[foo], 0) );
-    ass  ( !objectAt(@[foo], 1) );
-    ass  ( !objectAt(@[foo], -1) );
+    asseq(foo, objectAt(list(foo), 0) );
+    ass  ( !objectAt(list(foo), 1) );
+    ass  ( !objectAt(list(foo), -1) );
     
-    asseq(foo, objectAt(@[foo, bar, baz], 0) );
-    asseq(bar, objectAt(@[foo, bar, baz], 1) );
-    asseq(baz, objectAt(@[foo, bar, baz], 2) );
-    ass  ( !objectAt(@[foo, bar, baz], -2) );
-    ass  ( !objectAt(@[foo, bar, baz], -1) );
+    asseq(foo, objectAt(list(foo, bar, baz), 0) );
+    asseq(bar, objectAt(list(foo, bar, baz), 1) );
+    asseq(baz, objectAt(list(foo, bar, baz), 2) );
+    ass  ( !objectAt(list(foo, bar, baz), -2) );
+    ass  ( !objectAt(list(foo, bar, baz), -1) );
 }
 
 
@@ -90,10 +99,10 @@ static void test_responds_object() {
 #pragma mark reverse (iter)
 static void test_reverse_iter() {
     ass  ( !reverse(nil) );
-    asseq(@[], reverse(@[]) );
-    asseq(@[foo], reverse(@[foo]) );
-    asseq(@[bar, foo], reverse(@[foo, bar]) );
-    asseq(@[baz, bar, foo], reverse(@[foo, bar, baz]) );
+    asseq(list(), reverse(list()) );
+    asseq(list(foo), reverse(list(foo)) );
+    asseq(list(bar, foo), reverse(list(foo, bar)) );
+    asseq(list(baz, bar, foo), reverse(list(foo, bar, baz)) );
 }
 
 
@@ -113,6 +122,7 @@ int main(void) {
     test_first_iter();
     test_initial_iter();
     test_isKind_object();
+    test_iter_iter();
     test_last_iter();
     test_map_iter();
     test_objectAt_iter();
