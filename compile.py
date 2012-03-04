@@ -99,11 +99,15 @@ testm = '#import "mutton.h"\n#include "+support.h"\n\n\n'
 spfs = sorted(processedfiles, key=lambda x: x['name'])
 for pf in spfs:
     testm += '#pragma mark %s (%s)\nstatic void test_%s_%s() %s\n\n\n' % (pf['name'], pf['module'], pf['name'], pf['module'], pf['test'])
-testm += '#pragma mark main\nint main(void) {\n'
+testm += '#pragma mark main\nint main(void) {\n  @autoreleasepool {\n'
 for pf in spfs:
     testm += '    test_%s_%s();\n' % (pf['name'], pf['module'])
-testm += '}\n'
-
+testm += '''  }
+  int failed = mutton_failed_assertion_count;
+  int allassertions = mutton_all_assertion_count;
+  printf("\\n\\nFailed %d of %d assertions (%d%% passed)\\n", failed, allassertions, 100 - (int)round((((double)failed) / ((double)allassertions)) * 100));
+  
+  return failed != 0;\n}\n'''
 
 put('test/main.m', testm)
 

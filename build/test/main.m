@@ -118,6 +118,7 @@ static void test_tail_iter() {
 
 #pragma mark main
 int main(void) {
+  @autoreleasepool {
     test_count_iter();
     test_first_iter();
     test_initial_iter();
@@ -129,4 +130,10 @@ int main(void) {
     test_responds_object();
     test_reverse_iter();
     test_tail_iter();
+  }
+  int failed = mutton_failed_assertion_count;
+  int allassertions = mutton_all_assertion_count;
+  printf("\n\nFailed %d of %d assertions (%d%% passed)\n", failed, allassertions, 100 - (int)round((((double)failed) / ((double)allassertions)) * 100));
+  
+  return failed != 0;
 }

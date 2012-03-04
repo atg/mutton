@@ -12,7 +12,6 @@ static id initial(Iter it) {
 
     // We don't know when the iterable ends, so we just have to add everything to an array, then remove the last object
     yield_start;
-    BOOL isFirst = YES;
     for (id x in it) {
         yield(x);
     }
