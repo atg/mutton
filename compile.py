@@ -6,11 +6,11 @@ os.chdir(os.path.split(os.path.abspath( __file__ ))[0])
 unstable = '--unstable' in sys.argv
 
 # Remove everything in build
-subprocess.check_output(['rm', '-rf', 'build'])
+subprocess.check_output(['rm', '-rf', 'mutton'])
 
 # Create build
-subprocess.check_output(['mkdir', 'build'])
-subprocess.check_output(['mkdir', 'build/test'])
+subprocess.check_output(['mkdir', 'mutton'])
+subprocess.check_output(['mkdir', 'mutton/test'])
 
 # Read files
 def readfiles(dirname, shouldParse = False):
@@ -41,9 +41,9 @@ def readfiles(dirname, shouldParse = False):
             
         yield d
 
-allfiles = list(readfiles('tested', True))
+allfiles = list(readfiles('source/stable', True))
 if unstable:
-    allfiles.extend(list(readfiles('untested', True)))
+    allfiles.extend(list(readfiles('source/unstable', True)))
 
 def aftercmp(a, b):
     if a['name'] in b['afters']:
@@ -56,7 +56,7 @@ def aftercmp(a, b):
 processedfiles = allfiles[:]
 processedfiles.sort(aftercmp)
 
-miscfiles = list(readfiles('tested-misc', False))
+miscfiles = list(readfiles('source/stable-misc', False))
 allfiles.extend(miscfiles)
 
 modules = sorted(set(f['module'] for f in processedfiles))
@@ -69,7 +69,7 @@ for m in modules:
     muttonh += '#import "+%s.h"\n' % m
 
 def put(p, content):
-    f = open('build/' + p, 'a')
+    f = open('mutton/' + p, 'a')
     f.write(content)
     f.close()
 

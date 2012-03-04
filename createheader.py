@@ -23,7 +23,7 @@ else:
     os.chdir(os.path.split(os.path.abspath( __file__ ))[0])
     h = sys.argv[1]
     n = sys.argv[2]
-    f = open('untested/+%s.h' % n, 'a')
+    f = open('unstable/+%s.h' % n, 'a')
     f.write(template % (h, n))
-    print 'Created %s/%s() in %s' % (h, n, 'untested/+%s.h' % n)
+    print 'Created %s/%s() in %s' % (h, n, 'unstable/+%s.h' % n)
 
