@@ -12,6 +12,19 @@ static void test_count_iter() {
 }
 
 
+#pragma mark filter (iter)
+static void test_filter_iter() {
+    BOOL (^p)(id) = ^BOOL(NSString* s) {
+        return [s intValue] % 3 == 1;
+    };
+    ass  ( !filter(nil, p) );
+    asseq( emptylist(), filter(emptylist(), p) );
+    asseq( emptylist(), filter(list(@"2"), p) );
+    asseq( list(@"7"), filter(list(@"7"), p) );
+    asseq( list(@"1", @"4", @"7"), filter(list(@"1", @"2", @"3", @"4", @"5", @"6", @"7"), p) );
+}
+
+
 #pragma mark first (iter)
 static void test_first_iter() {
     ass  ( !first(nil) );
@@ -120,6 +133,7 @@ static void test_tail_iter() {
 int main(void) {
   @autoreleasepool {
     test_count_iter();
+    test_filter_iter();
     test_first_iter();
     test_initial_iter();
     test_isKind_object();

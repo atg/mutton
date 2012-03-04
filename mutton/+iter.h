@@ -17,6 +17,19 @@ static long count(Iter it) {
     return i;
 }
 
+/// ___
+// (in iter)
+static NSArray* filter(Iter it, Predicate p) {
+    if (!it)
+        return nil;
+    yield_start;
+    for (id x in it) {
+        if (p(x))
+            yield(x);
+    }
+    yield_stop;
+}
+
 /// Find the first object of the iterable, or nil if it's empty.
 // (in iter)
 static id first(Iter it) {
