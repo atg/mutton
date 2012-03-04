@@ -1,3 +1,5 @@
+#import <Foundation/Foundation.h>
+
 /// Iter: An iterable object
 typedef id<NSFastEnumeration> Iter;
 

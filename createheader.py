@@ -1,4 +1,5 @@
 template = """#include "+support.h"
+#import "+type.h"
 
 
 /// ___

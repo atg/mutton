@@ -1,4 +1,5 @@
 #include "+support.h"
+#import "+type.h"
 
 
 /// Find the last object of the iterable, or nil if it's empty.
