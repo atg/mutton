@@ -14,4 +14,4 @@ test {
     ass( responds(baz, @selector(objectAtIndex:)) );
 }
 
-#include "-support.h"
+#include "+unsupport.h"

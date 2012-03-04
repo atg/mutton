@@ -20,4 +20,4 @@ test {
     asseq(@[@[], @[@"a", @"b"], @[], @[] @[@"c", @"d", @"e"], @[]], split(@[foo, @"a", @"b", foo, foo, foo, @"c", @"d", @"e"], foo) );
 }
 
-#include "-support.h"
+#include "+unsupport.h"

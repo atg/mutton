@@ -19,4 +19,4 @@ test {
     asseq( foo, first(@[foo, bar, baz]) );
 }
 
-#include "-support.h"
+#include "+unsupport.h"

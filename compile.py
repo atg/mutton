@@ -64,7 +64,7 @@ def put(p, content):
 
 for miscfile in miscfiles:
     put('+%s.h' % miscfile['name'], miscfile['content'])
-    if miscfile['name'] == 'support':
+    if miscfile['name'] == 'support' or miscfile['name'] == 'unsupport':
         continue
     muttonh += '#import "+%s.h"\n' % miscfile['name']
 
@@ -80,7 +80,7 @@ for m in modules:
     if not list(hdeps):
         hdep = ''
     
-    hcontent += '#include "-support.h"\n'
+    hcontent += '#include "+unsupport.h"\n'
     if hcontent.strip():
         put('+%s.h' % m, hdep + hcontent)
 
