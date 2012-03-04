@@ -5,7 +5,7 @@
 #pragma mark count (iter)
 static void test_count_iter() {
     ass  ( !count(nil) );
-    ass  ( !count(list()) );
+    ass  ( !count(emptylist()) );
     ass  ( 1 == count(list(foo)) );
     ass  ( 2 == count(list(foo, bar)) );
     ass  ( 3 == count(list(foo, bar, baz)) );
@@ -15,7 +15,7 @@ static void test_count_iter() {
 #pragma mark first (iter)
 static void test_first_iter() {
     ass  ( !first(nil) );
-    ass  ( !first(list()) );
+    ass  ( !first(emptylist()) );
     asseq( bar, first(list(bar)) );
     asseq( foo, first(list(foo, bar, baz)) );
 }
@@ -24,8 +24,8 @@ static void test_first_iter() {
 #pragma mark initial (iter)
 static void test_initial_iter() {
     ass  ( !initial(nil) );
-    asseq(list(), initial(list()) );
-    asseq(list(), initial(list(foo)) );
+    asseq(emptylist(), initial(emptylist()) );
+    asseq(emptylist(), initial(list(foo)) );
     asseq(list(foo), initial(list(foo, bar)) );
     asseq(list(foo, bar), initial(list(foo, bar, baz)) );
 }
@@ -47,7 +47,7 @@ static void test_isKind_object() {
 #pragma mark iter (iter)
 static void test_iter_iter() {
     ass  ( !iter(nil) );
-    asseq( list(), iter(list()) );
+    asseq( emptylist(), iter(emptylist()) );
     asseq( list(foo, bar, baz), iter(list(foo, bar, baz)) );
     asseq( list(baz, bar, foo), iter([list(foo, bar, baz) reverseObjectEnumerator]) );
 }
@@ -56,7 +56,7 @@ static void test_iter_iter() {
 #pragma mark last (iter)
 static void test_last_iter() {
     ass  ( !last(nil) );
-    ass  ( !last(list()) );
+    ass  ( !last(emptylist()) );
     asseq( bar, last(list(bar)) );
     asseq( baz, last(list(foo, bar, baz)) );
 }
@@ -99,7 +99,7 @@ static void test_responds_object() {
 #pragma mark reverse (iter)
 static void test_reverse_iter() {
     ass  ( !reverse(nil) );
-    asseq(list(), reverse(list()) );
+    asseq(emptylist(), reverse(emptylist()) );
     asseq(list(foo), reverse(list(foo)) );
     asseq(list(bar, foo), reverse(list(foo, bar)) );
     asseq(list(baz, bar, foo), reverse(list(foo, bar, baz)) );
@@ -109,10 +109,10 @@ static void test_reverse_iter() {
 #pragma mark tail (iter)
 static void test_tail_iter() {
     ass  ( !tail(nil) );
-    asseq(@[], tail(@[]) );
-    asseq(@[], tail(@[foo]) );
-    asseq(@[bar], tail(@[foo, bar]) );
-    asseq(@[bar, baz], tail(@[foo, bar, baz]) );
+    asseq(emptylist(), tail(emptylist()) );
+    asseq(emptylist(), tail(list(foo)) );
+    asseq(list(bar), tail(list(foo, bar)) );
+    asseq(list(bar, baz), tail(list(foo, bar, baz)) );
 }
 
 

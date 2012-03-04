@@ -9,7 +9,7 @@ static NSArray* intersperse(Iter it) {
 
 test {
     ass  (! intersperse(nil, foo) );
-    asseq(list(), intersperse(list(), foo) );
+    asseq(emptylist(), intersperse(emptylist(), foo) );
     asseq(list(bar), intersperse(list(bar), foo) );
     asseq(list(foo, foo, bar), intersperse(list(foo, bar), foo) );
     asseq(list(foo, foo, bar, foo, baz), intersperse(list(foo, bar, baz), foo) );

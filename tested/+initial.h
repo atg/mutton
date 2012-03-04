@@ -25,8 +25,8 @@ static id initial(Iter it) {
 
 test {
     ass  ( !initial(nil) );
-    asseq(list(), initial(list()) );
-    asseq(list(), initial(list(foo)) );
+    asseq(emptylist(), initial(emptylist()) );
+    asseq(emptylist(), initial(list(foo)) );
     asseq(list(foo), initial(list(foo, bar)) );
     asseq(list(foo, bar), initial(list(foo, bar, baz)) );
 }

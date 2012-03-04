@@ -25,7 +25,7 @@ static NSArray* iter(Iter it) {
 
 test {
     ass  ( !iter(nil) );
-    asseq( list(), iter(list()) );
+    asseq( emptylist(), iter(emptylist()) );
     asseq( list(foo, bar, baz), iter(list(foo, bar, baz)) );
     asseq( list(baz, bar, foo), iter([list(foo, bar, baz) reverseObjectEnumerator]) );
 }

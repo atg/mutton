@@ -14,7 +14,7 @@ static id first(Iter it) {
 
 test {
     ass  ( !first(nil) );
-    ass  ( !first(list()) );
+    ass  ( !first(emptylist()) );
     asseq( bar, first(list(bar)) );
     asseq( foo, first(list(foo, bar, baz)) );
 }

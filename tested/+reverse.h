@@ -19,7 +19,7 @@ static id reverse(Iter it) {
 
 test {
     ass  ( !reverse(nil) );
-    asseq(list(), reverse(list()) );
+    asseq(emptylist(), reverse(emptylist()) );
     asseq(list(foo), reverse(list(foo)) );
     asseq(list(bar, foo), reverse(list(foo, bar)) );
     asseq(list(baz, bar, foo), reverse(list(foo, bar, baz)) );

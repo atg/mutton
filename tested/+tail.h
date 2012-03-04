@@ -24,10 +24,10 @@ static id tail(Iter it) {
 
 test {
     ass  ( !tail(nil) );
-    asseq(@[], tail(@[]) );
-    asseq(@[], tail(@[foo]) );
-    asseq(@[bar], tail(@[foo, bar]) );
-    asseq(@[bar, baz], tail(@[foo, bar, baz]) );
+    asseq(emptylist(), tail(emptylist()) );
+    asseq(emptylist(), tail(list(foo)) );
+    asseq(list(bar), tail(list(foo, bar)) );
+    asseq(list(bar, baz), tail(list(foo, bar, baz)) );
 }
 
 #include "+unsupport.h"

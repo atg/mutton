@@ -11,6 +11,9 @@
 #undef yield_from
 #undef yield
 
+#undef emptylist
+#undef list
+
 #undef ass
 #undef asseq
 #endif

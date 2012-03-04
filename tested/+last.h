@@ -19,7 +19,7 @@ static id last(Iter it) {
 
 test {
     ass  ( !last(nil) );
-    ass  ( !last(list()) );
+    ass  ( !last(emptylist()) );
     asseq( bar, last(list(bar)) );
     asseq( baz, last(list(foo, bar, baz)) );
 }

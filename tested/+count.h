@@ -19,7 +19,7 @@ static long count(Iter it) {
 
 test {
     ass  ( !count(nil) );
-    ass  ( !count(list()) );
+    ass  ( !count(emptylist()) );
     ass  ( 1 == count(list(foo)) );
     ass  ( 2 == count(list(foo, bar)) );
     ass  ( 3 == count(list(foo, bar, baz)) );
