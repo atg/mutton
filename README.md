@@ -39,6 +39,8 @@ Note that there is a pre-commit hook that runs `compile.py`, which will clobber 
 
 We usually defer to Haskell when deciding what to call things. We do change the argument order quite a bit though, to suit the expectations of Objective-C programmers (Verb-Subject-Object instead of Verb-Object-Subject).
 
+Oh, you mean [*"Mutton"*](http://en.wikipedia.org/wiki/Lamb_and_mutton)? It's a pun.
+
 ## License
 
 Mutton is licensed under the WTFPL.
