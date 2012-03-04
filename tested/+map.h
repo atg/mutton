@@ -1,4 +1,4 @@
-#import "+support.h"
+#include "+support.h"
 
 
 /// map(xs, f) is the list obtained by applying f to each element of xs
@@ -20,4 +20,4 @@ test {
         map(@[@"foo", @"bar", @"wobble"], muttoupper) );
 }
 
-#import "-support.h"
+#include "-support.h"

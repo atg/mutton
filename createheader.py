@@ -1,4 +1,4 @@
-template = """#import "+support.h"
+template = """#include "+support.h"
 
 
 /// ___
@@ -12,7 +12,7 @@ test {
     ___
 }
 
-#import "-support.h"
+#include "-support.h"
 """
 
 

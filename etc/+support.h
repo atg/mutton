@@ -1,3 +1,5 @@
+#ifndef MUTTON_SUPPORT
+#define MUTTON_SUPPORT
 #define test static void mutton_private_test_(void)
 #define foo @"foo"
 #define bar [NSNumber numberWithInteger:42]
@@ -12,3 +14,4 @@
 // Nothing personal. 
 #define ass(c_) NSAssert(!!(c), @"")
 #define asseq(a_, b_) NSAssert(!!(a) && !!(b) && [(a) isEqual:(b)], @"")
+#endif

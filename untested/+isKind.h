@@ -1,4 +1,4 @@
-#import "+support.h"
+#include "+support.h"
 
 
 /// Wraps isKindOfClass. Accepts a string as the class argument.
@@ -28,4 +28,4 @@ test {
     ass( isKind([NSDate date], [NSDate class]) );
 }
 
-#import "-support.h"
+#include "-support.h"

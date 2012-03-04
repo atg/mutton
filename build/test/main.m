@@ -1,5 +1,5 @@
 #import "mutton.h"
-#import "+support.h"
+#include "+support.h"
 
 
 #pragma mark isKind (object)

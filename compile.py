@@ -64,7 +64,7 @@ def put(p, content):
 put('mutton.h', muttonh)
 for m in modules:
     hdeps = set()
-    hcontent = ''
+    hcontent = '#import <Foundation/Foundation.h>\n#include "+support.h"\n\n'
     for pf in processedfiles:
         if pf['module'] == m:
             hcontent += pf['definition']
@@ -73,10 +73,11 @@ for m in modules:
     if not list(hdeps):
         hdep = ''
     
+    hcontent += '#include "-support.h"\n'
     if hcontent.strip():
         put('+%s.h' % m, hdep + hcontent)
 
-testm = '#import "mutton.h"\n#import "+support.h"\n\n\n'
+testm = '#import "mutton.h"\n#include "+support.h"\n\n\n'
 spfs = sorted(processedfiles, key=lambda x: x['name'])
 for pf in spfs:
     testm += '#pragma mark %s (%s)\nstatic void test_%s_%s() %s\n\n\n' % (pf['name'], pf['module'], pf['name'], pf['module'], pf['test'])

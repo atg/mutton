@@ -1,3 +1,4 @@
+#ifdef MUTTON_SUPPORT
 #undef test
 #undef foo
 #undef bar
@@ -11,3 +12,4 @@
 
 #undef ass
 #undef asseq
+#endif

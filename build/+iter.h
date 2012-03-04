@@ -1,3 +1,6 @@
+#import <Foundation/Foundation.h>
+#include "+support.h"
+
 /// map(xs, f) is the list obtained by applying f to each element of xs
 // (in iter)
 static NSArray* map(Iter it, Mapping f) {
@@ -10,3 +13,4 @@ static NSArray* map(Iter it, Mapping f) {
     yield_stop;
 }
 
+#include "-support.h"

@@ -1,4 +1,4 @@
-#import "+support.h"
+#include "+support.h"
 
 
 /// Wraps -respondsToSelector
@@ -14,4 +14,4 @@ test {
     ass( responds(baz, @selector(objectAtIndex:)) );
 }
 
-#import "-support.h"
+#include "-support.h"
