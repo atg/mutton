@@ -8,3 +8,7 @@
 #define yield_stop return mutton_yield_v_
 #define yield_from(v_) [mutton_yield_v_ addObjectsFromArray(v_)]
 #define yield(v_) [mutton_yield_v_ addObject:(v_)]
+
+// Nothing personal. 
+#define ass(c_) NSAssert(!!(c), @"")
+#define asseq(a_, b_) NSAssert(!!(a) && !!(b) && [(a) isEqual:(b)], @"")

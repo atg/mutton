@@ -3,7 +3,7 @@ template = """#import "+support.h"
 
 /// ___
 // (in %s)
-static ___ %s(Iter it, Mapping f) {
+static ___ %s(___) {
     
 }
 

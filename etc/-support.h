@@ -8,3 +8,6 @@
 #undef yield_stop
 #undef yield_from
 #undef yield
+
+#undef ass
+#undef asseq

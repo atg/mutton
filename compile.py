@@ -16,6 +16,8 @@ subprocess.check_output(['mkdir', 'build/test'])
 def readfiles(dirname, shouldParse = False):
     paths = os.listdir(dirname)
     for p in paths:
+        if not p[0] == '+':
+            continue
         p1 = '%s/%s' % (dirname, p)
         content = open(p1, 'r').read()
         
@@ -74,11 +76,11 @@ for m in modules:
     if hcontent.strip():
         put('+%s.h' % m, hdep + hcontent)
 
-testm = '#import "mutton.h"\n'
+testm = '#import "mutton.h"\n#import "+support.h"\n\n\n'
 spfs = sorted(processedfiles, key=lambda x: x['name'])
 for pf in spfs:
-    testm += '#pragma mark %s (%s)\n\nstatic void test_%s_%s() %s\n' % (pf['name'], pf['module'], pf['name'], pf['module'], pf['test'])
-testm += '\n\n\n#pragma mark main\n\nint main(void) {\n'
+    testm += '#pragma mark %s (%s)\nstatic void test_%s_%s() %s\n\n\n' % (pf['name'], pf['module'], pf['name'], pf['module'], pf['test'])
+testm += '#pragma mark main\nint main(void) {\n'
 for pf in spfs:
     testm += '    test_%s_%s();\n' % (pf['name'], pf['module'])
 testm += '}\n'
