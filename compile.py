@@ -62,6 +62,10 @@ def put(p, content):
     f.write(content)
     f.close()
 
+for miscfile in miscfiles:
+    put('+%s.h' % miscfile['name'], miscfile['content'])
+    muttonh += '#import "+%s.h"\n' % miscfile['name']
+
 put('mutton.h', muttonh)
 for m in modules:
     hdeps = set()
@@ -87,8 +91,6 @@ for pf in spfs:
     testm += '    test_%s_%s();\n' % (pf['name'], pf['module'])
 testm += '}\n'
 
-for miscfile in miscfiles:
-    put('+%s.h' % miscfile['name'], miscfile['content'])
 
 put('test/main.m', testm)
 
