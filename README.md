@@ -9,7 +9,7 @@ The `mutton/` directory contains an up-to-date *stable* snapshot of Mutton.
 Add it to your include path somehow, or copy the files out of it, then do `#import "mutton.h"`.
 
 * You can compile xcode/mutton-test.xcodeproj if you want to check that Mutton is in tip-top condition.
-* If you want an *unstable* build for some reason, do `python compile.py`, but be aware that it will be replaced with a stable build if you `git commit`.
+* If you want an *unstable* build for some reason, do `python compile.py --unstable`, but be aware that it will be replaced with a stable build if you `git commit`.
 
 ## Compatibility
 
