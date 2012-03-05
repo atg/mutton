@@ -51,6 +51,27 @@ static long count(Iter it) {
     return i;
 }
 
+/// Removes the given number of objects from the array
+// (in iter)
+static NSArray* drop(Iter it, long n) {
+    if (n < 0)
+        [NSException raise:NSInvalidArgumentException format:@"drop(%@, %ld) called with negative N", it, n];
+    if (!it)
+        return nil;
+    
+    yield_start;
+    
+    long i = 0;
+    for (id x in it) {
+        if (i >= n)
+            yield(x);
+        else
+            i++;
+    }
+    
+    yield_stop;
+}
+
 /// Keep only the elements of a list for with the predicate is true.
 // (in iter)
 static NSArray* filter(Iter it, Predicate p) {
@@ -89,6 +110,24 @@ static id initial(Iter it) {
 
     if ([mutton_yield_v_ count])
         [mutton_yield_v_ removeLastObject];
+    yield_stop;
+}
+
+/// A bit like componentsJoinedByString: but with general purpose iterables instead of strings.
+// (in iter)
+// (after count)
+static NSArray* intersperse(Iter it, id x) {
+    if (!it)
+        return nil;
+    yield_start;
+    BOOL isFirst = YES;
+    for (id y in it) {
+        if (isFirst)
+            isFirst = NO;
+        else
+            yield(x);
+        yield(y);
+    }
     yield_stop;
 }
 

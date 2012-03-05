@@ -87,6 +87,36 @@ static void test_count_iter() {
 }
 
 
+#pragma mark drop (iter)
+static void test_drop_iter() {
+    ass  ( !drop(nil, 0) );
+    ass  ( !drop(nil, 1) );
+    ass  ( !drop(nil, 10) );
+    
+    asseq( emptylist(), drop(emptylist(), 0) );    
+    asseq( emptylist(), drop(emptylist(), 1) );    
+    asseq( emptylist(), drop(emptylist(), 10) );    
+
+    asseq( emptylist(), drop(list(foo), 1) );    
+    asseq( emptylist(), drop(list(foo), 2) );
+    asseq( emptylist(), drop(list(foo), 10) );
+    
+    asseq( emptylist(), drop(list(foo, baz), 2) );
+    asseq( emptylist(), drop(list(foo, bar), 3) );
+    asseq( emptylist(), drop(list(foo), 10) );
+    
+    asseq( list(foo), drop(list(foo), 0) );
+    asseq( list(foo), drop(list(bar, foo), 1) );
+    asseq( list(baz), drop(list(bar, foo, baz), 2) );
+    
+    asseq( list(foo), drop(list(foo), 0) );
+    asseq( list(foo), drop(list(bar, foo), 1) );
+    asseq( list(foo), drop(list(bar, baz, foo), 2) );
+
+    asseq( list(baz, foo), drop(list(bar, baz, foo), 1) );
+}
+
+
 #pragma mark falsy (bool)
 static void test_falsy_bool() {
     ass  ( falsy(nil) );
@@ -131,6 +161,16 @@ static void test_initial_iter() {
     asseq(emptylist(), initial(list(foo)) );
     asseq(list(foo), initial(list(foo, bar)) );
     asseq(list(foo, bar), initial(list(foo, bar, baz)) );
+}
+
+
+#pragma mark intersperse (iter)
+static void test_intersperse_iter() {
+    ass  (! intersperse(nil, foo) );
+    asseq(emptylist(), intersperse(emptylist(), foo) );
+    asseq(list(bar), intersperse(list(bar), foo) );
+    asseq(list(foo, foo, bar), intersperse(list(foo, bar), foo) );
+    asseq(list(foo, foo, bar, foo, baz), intersperse(list(foo, bar, baz), foo) );
 }
 
 
@@ -276,10 +316,12 @@ int main(void) {
     test_concat_iter();
     test_concatMap_iter();
     test_count_iter();
+    test_drop_iter();
     test_falsy_bool();
     test_filter_iter();
     test_first_iter();
     test_initial_iter();
+    test_intersperse_iter();
     test_isKind_object();
     test_iter_iter();
     test_last_iter();
