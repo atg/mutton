@@ -38,7 +38,6 @@ def readfiles(dirname, shouldParse = False):
             d['definition'] = re.findall(r'(/// [\s\S]+)\ntest \{', content)[0]
             d['test'] = re.findall(r'\ntest (\{[\s\S]+\})', content)[0]
             d['afters'] = set(re.findall(r'// \(after ([^\)]+)\)', content))
-            
         yield d
 
 allfiles = list(readfiles('source/stable', True))
@@ -48,13 +47,24 @@ if unstable:
 def aftercmp(a, b):
     if a['name'] in b['afters']:
         return -1
-    elif a['name'] in b['afters']:
+    elif b['name'] in a['afters']:
         return 1
     else:
-        return cmp(a['name'], b['name'])
+        return 0 # Can't do this, it conflicts with the comparison above: cmp(a['name'], b['name'])
 
 processedfiles = allfiles[:]
-processedfiles.sort(aftercmp)
+
+# We can't use python's sort here because it's assumes the comparator is transitive
+for i in xrange(len(processedfiles)):
+    for j in xrange(len(processedfiles)):
+        if i == j:
+            continue
+        c = aftercmp(processedfiles[i], processedfiles[j])
+        if c == 0:
+           continue
+        if (i < j and c == 1) or (i > j and c == -1):
+            processedfiles[i], processedfiles[j] = processedfiles[j], processedfiles[i]
+# print [p['name'] for p in processedfiles]
 
 miscfiles = list(readfiles('source/stable-misc', False))
 allfiles.extend(miscfiles)

@@ -4,6 +4,40 @@
 #import <Foundation/Foundation.h>
 #include "+support.h"
 
+/// Glue together an array of arrays (or iterable of iterables) to make one big array.
+// (in iter)
+static NSArray* concat(Iter it) {
+    if (!it)
+        return nil;
+    
+    yield_start;
+    for (Iter j in it) {
+        if ([j isKindOfClass:[NSArray class]]) {
+            yield_from((NSArray*)j);
+        }
+        else {
+            for (id x in j) {
+                yield(x);
+            }
+        }
+    }
+    yield_stop;
+}
+
+/// map(xs, f) is the list obtained by applying f to each element of xs
+// (in iter)
+static NSArray* map(Iter it, Mapping f) {
+    if (!it)
+        return nil;
+    yield_start;
+    for (id x in it) {
+        id y = f(x);
+        if (y)
+            yield(y);
+    } 
+    yield_stop;
+}
+
 /// Find the number of objects in an array or iterable.
 // (in iter)
 static long count(Iter it) {
@@ -17,7 +51,7 @@ static long count(Iter it) {
     return i;
 }
 
-/// ___
+/// Keep only the elements of a list for with the predicate is true.
 // (in iter)
 static NSArray* filter(Iter it, Predicate p) {
     if (!it)
@@ -90,18 +124,14 @@ static id last(Iter it) {
     return v;
 }
 
-/// map(xs, f) is the list obtained by applying f to each element of xs
+/// Map each element to a list of new elements (which may be empty), then glue the lists together. It's map, filter and a bit more on top.
 // (in iter)
-static NSArray* map(Iter it, Mapping f) {
+// (after concat)
+// (after map)
+static NSArray* concatMap(Iter it, Iter(^f)(id)) {
     if (!it)
         return nil;
-    yield_start;
-    for (id x in it) {
-        id y = f(x);
-        if (y)
-            yield(y);
-    } 
-    yield_stop;
+    return concat(map(it, f)); // Ahhhh the joys of functional programming at last
 }
 
 /// Like objectAtIndex: but works on general iterables, and returns nil if the index is out of bounds (instead of an exception).
@@ -129,6 +159,21 @@ static id objectAt(Iter it, long n) {
     }
 
     return nil;
+}
+
+/// Build a list by repeating an element a given (non-negative) number of times.
+// (in iter)
+static NSArray* replicate(id v, long n) {
+    if (n < 0)
+        [NSException raise:NSInvalidArgumentException format:@"replicate(%@, %ld) called with negative N", v, n];
+    if (!v)
+        return nil;
+    
+    yield_start;
+    for (long i = 0; i < n; i++) {
+        yield(v);
+    }
+    yield_stop;
 }
 
 /// Reverse an iterable.
@@ -161,6 +206,46 @@ static id tail(Iter it) {
             yield(x);
     } 
     yield_stop;
+}
+
+/// Remove duplicate objects, as determined by their -hash and isEqual: (i.e., the objects are inserted into an NSSet to determine equality). O(n).
+// (in iter)
+static NSArray* uniqued(Iter it) {
+    if (!it)
+        return nil;
+    
+    NSMutableSet* s = [NSMutableSet set];
+    yield_start;
+    for (id x in it) {
+        if (![s containsObject:x]) {
+            [s addObject:x];
+            yield(x);
+        }
+    }
+    yield_stop;
+}
+
+/// Remove duplicate objects, as determined by a binary predicate. O(n^2).
+// (in iter)
+static NSArray* uniquedBy(Iter it, BinaryPredicate p) {
+    NSMutableArray* result = [NSMutableArray array];
+    
+    
+    
+    for (id x in it) {
+        BOOL isDupe = NO;
+        for (id y in result) {
+            if (p(x, y)) {
+                isDupe = YES;
+                break;
+            }
+        }
+        
+        if (!isDupe)
+            [result addObject:x];
+    }
+    
+    return result;
 }
 
 #include "+unsupport.h"

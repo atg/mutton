@@ -1,7 +1,7 @@
 #import "+type.h"
 #include "+support.h"
 
-/// ___
+/// Keep only the elements of a list for with the predicate is true.
 // (in iter)
 static NSArray* filter(Iter it, Predicate p) {
     if (!it)

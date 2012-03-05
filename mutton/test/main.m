@@ -2,6 +2,81 @@
 #include "+support.h"
 
 
+#pragma mark applyIf (func)
+static void test_applyIf_func() {
+    ass  (!applyIf(nil, nil));
+    ass  (!applyIf(nil, byIdentity()));
+    asseq(foo, applyIf(foo, byIdentity()));
+}
+
+
+#pragma mark byCompose (func)
+static void test_byCompose_func() {
+    Mapping allocate = ^id(id x) { return [x alloc]; };
+    Mapping initialize = ^id(id x) { return [x init]; };
+    Mapping allocinit = byCompose(initialize, allocate);
+    
+    asseq(@"", allocinit([NSString class]));
+}
+
+
+#pragma mark byConst (func)
+static void test_byConst_func() {
+    ass  ( !byConst(nil)(nil) );
+    ass  ( !byConst(nil)(foo) );
+    asseq( foo, byConst(foo)(nil) );
+    asseq( foo, byConst(foo)(foo) );
+    asseq( foo, byConst(foo)(bar) );
+}
+
+
+#pragma mark byFlip (func)
+static void test_byFlip_func() {
+    BinaryMapping joinstr = ^id(id x, id y) { return [x stringByAppendingString:y]; };
+
+    asseq(@"barfoo", byFlip(joinstr)(@"foo", @"bar"));
+}
+
+
+#pragma mark byFunction (func)
+static void test_byFunction_func() {
+    ass  (!byFunction(NULL));
+    
+// This test passes OK, but clang a warning. Can't figure it out.
+    Mapping f = byFunction(&byConst);
+    Mapping g = f(foo);
+    id h = g(bar);
+    asseq(foo, h);
+}
+
+
+#pragma mark byIdentity (func)
+static void test_byIdentity_func() {
+    ass  ( !byIdentity()(nil) );
+    asseq( foo, byIdentity()(foo) );
+}
+
+
+#pragma mark concat (iter)
+static void test_concat_iter() {
+    NSArray* a = list(foo, bar, baz);
+    NSArray* b = [NSSet setWithObjects:foo, bar, nil];
+    NSArray* c = emptylist();
+    NSArray* d = [NSSet set];
+    NSArray* e = list(baz);
+        
+    ass  ( !concat(nil) );
+    ass  ( [concat(list(a, b, c, d, e)) count] == [a count] + [b count] + [c count] + [d count] + [e count] );
+    asseq( list(foo, bar, baz, foo, bar, baz), concat(list(a, iter(b), c, d, e)) );
+}
+
+
+#pragma mark concatMap (iter)
+static void test_concatMap_iter() {
+    ass  ( !concatMap(nil, nil) );
+}
+
+
 #pragma mark count (iter)
 static void test_count_iter() {
     ass  ( !count(nil) );
@@ -101,6 +176,17 @@ static void test_objectAt_iter() {
 }
 
 
+#pragma mark replicate (iter)
+static void test_replicate_iter() {
+    ass  ( !replicate(nil, 0) );
+    ass  ( !replicate(nil, 10) );
+    asseq( emptylist(), replicate(foo, 0) );
+    asseq( list(foo), replicate(foo, 1) );
+    asseq( list(foo, foo), replicate(foo, 2) );
+    asseq( list(foo, foo, foo), replicate(foo, 3) );
+}
+
+
 #pragma mark responds (object)
 static void test_responds_object() {
     ass( responds(foo, @selector(characterAtIndex:)) );
@@ -129,9 +215,38 @@ static void test_tail_iter() {
 }
 
 
+#pragma mark uniqued (iter)
+static void test_uniqued_iter() {
+    ass  ( !uniqued(nil) );
+    asseq( emptylist(), uniqued(emptylist()) );
+    asseq( list(foo, bar, baz), uniqued(list(foo, bar, baz)) );
+    
+    NSString* foo2 = [foo mutableCopy];
+    NSString* foo3 = [foo mutableCopy];
+    NSString* foo4 = [foo mutableCopy];
+    
+    asseq( list(foo), uniqued(list(foo, foo2, foo3, foo4)) );
+    asseq( list(bar, foo), uniqued(list(bar, foo, foo2, foo3, foo4)) );
+}
+
+
+#pragma mark uniquedBy (iter)
+static void test_uniquedBy_iter() {
+    // TODO: Add tests to me!
+}
+
+
 #pragma mark main
 int main(void) {
   @autoreleasepool {
+    test_applyIf_func();
+    test_byCompose_func();
+    test_byConst_func();
+    test_byFlip_func();
+    test_byFunction_func();
+    test_byIdentity_func();
+    test_concat_iter();
+    test_concatMap_iter();
     test_count_iter();
     test_filter_iter();
     test_first_iter();
@@ -141,9 +256,12 @@ int main(void) {
     test_last_iter();
     test_map_iter();
     test_objectAt_iter();
+    test_replicate_iter();
     test_responds_object();
     test_reverse_iter();
     test_tail_iter();
+    test_uniqued_iter();
+    test_uniquedBy_iter();
   }
   int failed = mutton_failed_assertion_count;
   int allassertions = mutton_all_assertion_count;

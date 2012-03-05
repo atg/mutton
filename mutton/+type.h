@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 
 /// Iter: An iterable object
-typedef id<NSFastEnumeration> Iter;
+typedef id<NSObject, NSFastEnumeration> Iter;
 
 /// Mapping: An block that maps an object to another object
 typedef id (^Mapping)(id);

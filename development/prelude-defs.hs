@@ -1,3 +1,4 @@
+
 id               :: a -> a
     Mapping byIdentity();
 const            :: a -> b -> a
@@ -5,10 +6,28 @@ const            :: a -> b -> a
 (.)              :: (b -> c) -> (a -> b) -> a -> c
     Mapping byCompose(Mapping f, Mapping g);
 flip             :: (a -> b -> c) -> b -> a -> c
-    BinaryMapping byFlip(BinaryMapping f);
+    BinaryMapping byFlip(BinaryMapping f);   
 maybe              :: b -> (a -> b) -> Maybe a -> b
     id applyIf(id x, Mapping f);
     // returns f(x) if x is not nil, or nil otherwise
+map :: (a -> b) -> [a] -> [b]
+    NSArray* map(Iter i, Mapping f);
+filter :: (a -> Bool) -> [a] -> [a]
+    NSArray* map(Iter i, Predicate p);
+concat :: [[a]] -> [a]
+    NSArray* concat(Iter i);
+concatMap :: (a -> [b]) -> [a] -> [b]
+    NSArray* concatMap(Iter it, Iter(^f)(id x));
+replicate        :: Int -> a -> [a]
+    NSArray* replicate(id v, long n);
+reverse          :: [a] -> [a]
+    NSArray* reverse(Iter it);
+until            :: (a -> Bool) -> (a -> a) -> a -> a
+    id until(Predicate p, Mapping f, id x);
+
+
+
+
 -- either               :: (a -> c) -> (b -> c) -> Either a b -> c
 fst              :: (a,b) -> a
     id fst(Iter it);
@@ -23,20 +42,10 @@ curry            :: ((a, b) -> c) -> a -> b -> c
     Mapping(^curry)(id) (BinaryMaping f);
 uncurry          :: (a -> b -> c) -> ((a, b) -> c)
     BinaryMaping uncurry (Mapping(^f)(id));
-until            :: (a -> Bool) -> (a -> a) -> a -> a
-    id until(Predicate p, Mapping f, id x);
 -- error            :: String -> a
 -- undefined        :: a
-map :: (a -> b) -> [a] -> [b]
-    NSArray* map(Iter i, Mapping f);
 (++) :: [a] -> [a] -> [a]
     NSArray* extend(Iter i, Iter j);
-filter :: (a -> Bool) -> [a] -> [a]
-    NSArray* map(Iter i, Predicate p);
-concat :: [[a]] -> [a]
-    NSArray* flatten(Iter i);
-concatMap :: (a -> [b]) -> [a] -> [b]
-    NSArray* flattenMap(Iter it, Iter(^f)(id x));
 head             :: [a] -> a
     id first(Iter it);
 tail             :: [a] -> [a]
@@ -51,27 +60,25 @@ null             :: [a] -> Bool
 -- length           :: [a] -> Int
 -- (!!)                :: [a] -> Int -> a
 foldl            :: (a -> b -> a) -> a -> [b] -> a
-    id foldl0(Iter it, id x, BinaryMapping f);
+    id foldl(Iter it, id x, BinaryMapping f);
 foldl1           :: (a -> a -> a) -> [a] -> a
-    id foldl(Iter it, BinaryMapping f);
+    id foldl1(Iter it, BinaryMapping f);
 scanl            :: (a -> b -> a) -> a -> [b] -> [a]
-    NSArray* scanl0(Iter it, id x, BinaryMapping f);
+    NSArray* scanl(Iter it, id x, BinaryMapping f);
 scanl1           :: (a -> a -> a) -> [a] -> [a]
-    NSArray* scanl(Iter it, BinaryMapping f);
+    NSArray* scanl1(Iter it, BinaryMapping f);
 foldr            :: (a -> b -> b) -> b -> [a] -> b
-    id foldr0(Iter it, id x, BinaryMapping f);
+    id foldr(Iter it, id x, BinaryMapping f);
 foldr1           :: (a -> a -> a) -> [a] -> a
-    id foldr(Iter it, BinaryMapping f);
+    id foldr1(Iter it, BinaryMapping f);
 scanr             :: (a -> b -> b) -> b -> [a] -> [b]
-    NSArray* scanr0(Iter it, id x, BinaryMapping f);
+    NSArray* scanr(Iter it, id x, BinaryMapping f);
 scanr1          :: (a -> a -> a) -> [a] -> [a]
-    NSArray* scanr(Iter it, BinaryMapping f);
+    NSArray* scanr1(Iter it, BinaryMapping f);
 iterate          :: (a -> a) -> a -> [a]
     NSArray* nest(id v, long n, Mapping f);
     NSArray* nestList(id v, long n, Mapping f);
 -- repeat           :: a -> [a]
-replicate        :: Int -> a -> [a]
-    NSArray* replicate(id v, long n);
 -- cycle            :: [a] -> [a]
 take                   :: Int -> [a] -> [a]
     NSArray* take(Iter it, long n);
@@ -90,8 +97,6 @@ span, break             :: (a -> Bool) -> [a] -> ([a],[a])
 -- words            :: String -> [String]
 -- unlines          :: [String] -> String
 -- unwords          :: [String] -> String
-reverse          :: [a] -> [a]
-    NSArray* reverse(Iter it);
 and, or          :: [Bool] -> Bool
     BOOL allTruthy(Iter it);
     BOOL anyTruthy(Iter it);
