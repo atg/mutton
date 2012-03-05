@@ -51,6 +51,25 @@ static long count(Iter it) {
     return i;
 }
 
+/// ___
+// (in iter)
+static NSArray* drop(Iter it, long n) {
+    if (!it)
+        return nil;
+
+    yield_start;
+
+    long i = 0;
+    for (id x in it) {
+        if (i >= n)
+            yield(x);
+        else
+            i++;
+    }
+
+    yield_stop;
+}
+
 /// Keep only the elements of a list for with the predicate is true.
 // (in iter)
 static NSArray* filter(Iter it, Predicate p) {

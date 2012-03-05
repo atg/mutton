@@ -87,6 +87,21 @@ static void test_count_iter() {
 }
 
 
+#pragma mark drop (iter)
+static void test_drop_iter() {
+    ass  ( !drop(nil,0) );
+    ass  ( !drop(emptylist(), 0) );
+
+    asseq( emptylist(), drop(emptylist(), 0) );
+    asseq( emptylist(), drop(emptylist(), 1) );
+    asseq( foo, drop(list(foo, bar), 1) );
+
+    asseq( list(foo,bar,baz), drop(list(foo,bar,baz), 0) );
+    asseq( list(foo,bar),     drop(list(foo,bar,baz), 1) );
+    asseq( foo,               drop(list(foo,bar,baz), 2) );
+}
+
+
 #pragma mark falsy (bool)
 static void test_falsy_bool() {
     ass  ( falsy(nil) );
@@ -282,6 +297,7 @@ int main(void) {
     test_concat_iter();
     test_concatMap_iter();
     test_count_iter();
+    test_drop_iter();
     test_falsy_bool();
     test_filter_iter();
     test_first_iter();
