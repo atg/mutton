@@ -5,7 +5,9 @@
     
     intersperse
     
-    repeated
+    uniqueBy (needs tests)
+    take (needs tests)
+    drop (needs tests)
     
     all
     any
@@ -22,9 +24,6 @@
     runs
     runsBy 
         Split into sublists consisting of runs of identical elements.
-    
-    concat
-        Flatten a single layer
     
     transpose
     
