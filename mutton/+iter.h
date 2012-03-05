@@ -225,29 +225,6 @@ static NSArray* uniqued(Iter it) {
     yield_stop;
 }
 
-/// Remove duplicate objects, as determined by a binary predicate. O(n^2).
-// (in iter)
-static NSArray* uniquedBy(Iter it, BinaryPredicate p) {
-    NSMutableArray* result = [NSMutableArray array];
-    
-    
-    
-    for (id x in it) {
-        BOOL isDupe = NO;
-        for (id y in result) {
-            if (p(x, y)) {
-                isDupe = YES;
-                break;
-            }
-        }
-        
-        if (!isDupe)
-            [result addObject:x];
-    }
-    
-    return result;
-}
-
 /// Applies a function over and over again to x until p(x) evaluates to true.
 // (in iter)
 static id until(Predicate p, Mapping f, id x) {

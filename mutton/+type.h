@@ -14,3 +14,5 @@ typedef BOOL (^Predicate)(id);
 
 /// BinaryPredicate: An block that maps two objects to a boolean
 typedef BOOL (^BinaryPredicate)(id, id);
+
+#define lambda(x) (^id(id x) { return x; })

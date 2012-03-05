@@ -251,12 +251,6 @@ static void test_uniqued_iter() {
 }
 
 
-#pragma mark uniquedBy (iter)
-static void test_uniquedBy_iter() {
-    // TODO: Add tests to me!
-}
-
-
 #pragma mark until (iter)
 static void test_until_iter() {
     Predicate odd = ^BOOL(NSNumber* n) {
@@ -297,7 +291,6 @@ int main(void) {
     test_tail_iter();
     test_truthy_bool();
     test_uniqued_iter();
-    test_uniquedBy_iter();
     test_until_iter();
   }
   int failed = mutton_failed_assertion_count;

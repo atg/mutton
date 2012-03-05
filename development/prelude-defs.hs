@@ -24,6 +24,22 @@ reverse          :: [a] -> [a]
     NSArray* reverse(Iter it);
 until            :: (a -> Bool) -> (a -> a) -> a -> a
     id until(Predicate p, Mapping f, id x);
+init             :: [a] -> [a]
+    NSArray* initial(Iter it);
+null             :: [a] -> Bool
+    BOOL falsy(id x);
+    BOOL truthy(id x);
+head             :: [a] -> a
+    id first(Iter it);
+last             :: [a] -> a
+    id last(Iter it);
+take                   :: Int -> [a] -> [a]
+    NSArray* take(Iter it, long n);
+drop                   :: Int -> [a] -> [a]
+    NSArray* drop(Iter it, long n);
+
+
+
 
 
 
@@ -46,17 +62,8 @@ uncurry          :: (a -> b -> c) -> ((a, b) -> c)
 -- undefined        :: a
 (++) :: [a] -> [a] -> [a]
     NSArray* extend(Iter i, Iter j);
-head             :: [a] -> a
-    id first(Iter it);
 tail             :: [a] -> [a]
     NSArray* rest(Iter it);
-last             :: [a] -> a
-    id last(Iter it);
-init             :: [a] -> [a]
-    NSArray* initial(Iter it);
-null             :: [a] -> Bool
-    BOOL falsy(id x);
-    BOOL truthy(id x);
 -- length           :: [a] -> Int
 -- (!!)                :: [a] -> Int -> a
 foldl            :: (a -> b -> a) -> a -> [b] -> a
@@ -80,10 +87,6 @@ iterate          :: (a -> a) -> a -> [a]
     NSArray* nestList(id v, long n, Mapping f);
 -- repeat           :: a -> [a]
 -- cycle            :: [a] -> [a]
-take                   :: Int -> [a] -> [a]
-    NSArray* take(Iter it, long n);
-drop                   :: Int -> [a] -> [a]
-    NSArray* drop(Iter it, long n);
 splitAt                  :: Int -> [a] -> ([a],[a])
     Tuple2 splitAt(Iter it, long n);
 takeWhile               :: (a -> Bool) -> [a] -> [a]

@@ -6,4 +6,5 @@
 #import "+func.h"
 #import "+iter.h"
 #import "+object.h"
+#import "+mathlambda.h"
 #import "+type.h"

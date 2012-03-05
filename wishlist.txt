@@ -1,23 +1,9 @@
-+bool
-    truthy
-    falsy
-
-+func
-    
-
 +iter
-    filter
     exclude
     
     fold
     
     intersperse
-    
-    take
-    drop
-    
-    uniqued
-    uniquedBy
     
     repeated
     
