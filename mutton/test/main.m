@@ -260,6 +260,28 @@ static void test_reverse_iter() {
 }
 
 
+#pragma mark split (iter)
+static void test_split_iter() {
+    ass  (! split(nil, foo) );
+    asseq(emptylist(), split(emptylist(), foo) );
+    asseq(list(list(@"a")), split(list(@"a"), foo) );
+    asseq(list(list(@"a", @"b")), split(list(@"a", @"b"), foo) );
+    asseq(list(list(@"a", @"b"), emptylist()), split(list(@"a", @"b", foo), foo) );
+    asseq(list(emptylist(), list(@"a", @"b")), split(list(foo, @"a", @"b"), foo) );
+    asseq(list(emptylist(), list(@"a", @"b"), emptylist()), split(list(foo, @"a", @"b", foo), foo) );
+    asseq(list(list(@"a", @"b"), list(@"c", @"d", @"e")), split(list(@"a", @"b", foo, @"c", @"d", @"e"), foo) );
+    asseq(
+        list(
+            emptylist(), 
+            list(@"a", @"b"), 
+            emptylist(),
+            emptylist(),
+            list(@"c", @"d", @"e"), 
+            emptylist() ),
+        split(list(foo, @"a", @"b", foo, foo, foo, @"c", @"d", @"e"), foo) );
+}
+
+
 #pragma mark tail (iter)
 static void test_tail_iter() {
     ass  ( !tail(nil) );
@@ -347,6 +369,7 @@ int main(void) {
     test_replicate_iter();
     test_responds_object();
     test_reverse_iter();
+    test_split_iter();
     test_tail_iter();
     test_take_iter();
     test_truthy_bool();

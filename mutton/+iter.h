@@ -228,6 +228,27 @@ static id reverse(Iter it) {
         return reverse(iter(it));
 }
 
+/// A bit like componentsSeparatedByString: but with general purpose iterables instead of of strings
+// (in iter)
+static NSArray* split(Iter it, id token) {
+    if (!it)
+        return nil;
+    
+    yield_start;
+    
+    NSMutableArray* temp = [[NSMutableArray alloc] init];
+    for (id x in it) {
+        if (x == token) {
+            yield(temp);
+            temp = [[NSMutableArray alloc] init];
+        } else {
+            [temp addObject:x];
+        }
+    }
+    
+    yield_stop;
+}
+
 /// Extract the elements after the head of a list.
 // (in iter)
 static id tail(Iter it) {
