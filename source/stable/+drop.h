@@ -18,7 +18,7 @@ static NSArray* drop(Iter it, long n) {
         else
             i++;
     }
-    
+
     yield_stop;
 }
 
