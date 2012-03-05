@@ -6,6 +6,8 @@
 static NSArray* chunk(Iter it, long n) {
     if (!it)
         return nil;
+    if (n < 1)
+        return nil;
     
     NSArray* v = iter(it);
     if ([v count] == 0)
@@ -14,16 +16,27 @@ static NSArray* chunk(Iter it, long n) {
     if ([v count] >= n)
         return map(v, lambda(x, list(x)));
     
-    long bigsize = ceil(((double)[v count]) / ((double)n));
     long smallsize = floor(((double)[v count]) / ((double)n));
+    long lastsize = [v count] % smallsize;
     
-    // First chunk is bigsize, next chunks are smallsize
+    yield_start;
     
+    NSMutableArray* v = [NSMutableArray array];
+    for (id x in it) {
+        [v addObject:x];
+        if ([v count] == smallsize)
+    }
+    
+    yield_stop;
 }
 
 
 test {
-    // TODO: Add tests to me!
+    ass  ( !chunk() );
+    ass  ( !chunk(list(foo), 0) );
+    asseq( emptylist(), chunk(emptylist(), 10) );
+    asseq( list(list(foo)), chunk(list(foo), 1) );
+    // TODO: Add more tests to me!
 }
 
 #include "+unsupport.h"

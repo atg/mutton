@@ -1,7 +1,7 @@
 #import "+type.h"
 #include "+support.h"
 
-/// Determine if an object is not empty or nil
+/// Determine if an object is not empty and not nil.
 // (in bool)
 // (after falsy)
 static BOOL truthy(id x) {

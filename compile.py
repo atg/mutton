@@ -1,4 +1,4 @@
-import sys, os, subprocess, re
+import sys, os, subprocess, re, json
 from pprint import pprint
 
 os.chdir(os.path.split(os.path.abspath( __file__ ))[0])
@@ -33,11 +33,12 @@ def readfiles(dirname, shouldParse = False):
             d['dependencies'] = re.findall(r'#import "(\+[^"\n]+.h)"', content)
             d['dependencies'] = [dep for dep in d['dependencies'] if dep != '+support.h']
             
-            d['module'] = re.findall(r'// \(in ([^\)]+)\)', content)[0]
-            d['description'] = re.findall(r'/// ([^\)]+)', content)[0]
+            d['module'] = re.findall(r'// \(in ([^\)\n]+)\)', content)[0]
+            d['description'] = re.findall(r'/// ([^\n]+)', content)[0]
             d['definition'] = re.findall(r'(/// [\s\S]+)\ntest \{', content)[0]
             d['test'] = re.findall(r'\ntest (\{[\s\S]+\})', content)[0]
-            d['afters'] = set(re.findall(r'// \(after ([^\)]+)\)', content))
+            d['afters'] = set(re.findall(r'// \(after ([^\)\n]+)\)', content))
+            d['type'] = re.findall(r'static\s+([^\n]+)\s+%s\(([^\n]*)\)' % p[1:-2], content)[0]
         yield d
 
 allfiles = list(readfiles('source/stable', True))
@@ -120,5 +121,31 @@ testm += '''  }
   return failed != 0;\n}\n'''
 
 put('test/main.m', testm)
+
+# Documentation
+docjson_modules = {}
+for p in processedfiles:
+    args = p['type'][1]
+    ret = p['type'][0]
+    args = ', '.join('<strong>%s</strong>' % s.strip() for s in args.split(','))
+    ret = '<strong>%s</strong>' % ret
+    
+    d = {
+      'name': p['name'],
+      'normal': p['parsed'],
+      'dependencies': list(p['dependencies']),
+      'description': p['description'],
+      'definition': p['definition'],
+      'module': p['module'],
+      'afters': list(p['afters']),
+      'typesig': '(%s) -> %s' % (args, ret),
+    }
+    if p['module'] not in docjson_modules:
+       docjson_modules[p['module']] = [d]
+    else:
+       docjson_modules[p['module']].append(d)
+#pprint(docjson_modules)
+f = open('docs/content.js', 'w')
+f.write('var alldocs = ' + json.dumps(docjson_modules) + ' ;')
 
 # pprint(allfiles)

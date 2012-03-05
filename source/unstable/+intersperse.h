@@ -2,8 +2,20 @@
 
 /// A bit like componentsJoinedByString: but with general purpose iterables instead of strings.
 // (in iter)
-static NSArray* intersperse(Iter it) {
-    // TODO: Implement me!
+// (after count)
+static NSArray* intersperse(Iter it, id x) {
+    if (!it)
+        return nil;
+    yield_start;
+    BOOL isFirst = YES;
+    for (id y in it) {
+        if (isFirst)
+            isFirst = NO;
+        else
+            yield(x);
+        yield(y);
+    }
+    yield_stop;
 }
 
 
