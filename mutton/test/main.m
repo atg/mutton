@@ -87,6 +87,21 @@ static void test_count_iter() {
 }
 
 
+#pragma mark falsy (bool)
+static void test_falsy_bool() {
+    ass  ( falsy(nil) );
+    ass  ( falsy(emptylist()) );
+    ass  ( falsy([NSSet set]) );
+    ass  ( falsy([NSDictionary dictionary]) );
+    ass  ( falsy(@"") );
+    
+    ass  ( !falsy([NSDate date]) );
+    ass  ( !falsy(list(foo)) );
+    ass  ( !falsy([NSSet setWithObject:foo]) );
+    ass  ( !falsy(foo) );
+}
+
+
 #pragma mark filter (iter)
 static void test_filter_iter() {
     BOOL (^p)(id) = ^BOOL(NSString* s) {
@@ -215,6 +230,12 @@ static void test_tail_iter() {
 }
 
 
+#pragma mark truthy (bool)
+static void test_truthy_bool() {
+    // This hardly needs testing, does it?
+}
+
+
 #pragma mark uniqued (iter)
 static void test_uniqued_iter() {
     ass  ( !uniqued(nil) );
@@ -236,6 +257,19 @@ static void test_uniquedBy_iter() {
 }
 
 
+#pragma mark until (iter)
+static void test_until_iter() {
+    Predicate odd = ^BOOL(NSNumber* n) {
+        return [n integerValue] % 2 == 1;
+    };
+    Mapping divideby2 = ^NSNumber*(NSNumber* n) {
+        return [NSNumber numberWithInteger:[n integerValue] / 2];
+    };
+    
+    asseq([NSNumber numberWithInteger:25], until(odd, divideby2, [NSNumber numberWithInteger:400]));
+}
+
+
 #pragma mark main
 int main(void) {
   @autoreleasepool {
@@ -248,6 +282,7 @@ int main(void) {
     test_concat_iter();
     test_concatMap_iter();
     test_count_iter();
+    test_falsy_bool();
     test_filter_iter();
     test_first_iter();
     test_initial_iter();
@@ -260,8 +295,10 @@ int main(void) {
     test_responds_object();
     test_reverse_iter();
     test_tail_iter();
+    test_truthy_bool();
     test_uniqued_iter();
     test_uniquedBy_iter();
+    test_until_iter();
   }
   int failed = mutton_failed_assertion_count;
   int allassertions = mutton_all_assertion_count;

@@ -248,4 +248,12 @@ static NSArray* uniquedBy(Iter it, BinaryPredicate p) {
     return result;
 }
 
+/// Applies a function over and over again to x until p(x) evaluates to true.
+// (in iter)
+static id until(Predicate p, Mapping f, id x) {
+    while (!p(x))
+        x = f(x);
+    return x;
+}
+
 #include "+unsupport.h"

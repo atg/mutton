@@ -55,8 +55,8 @@ last             :: [a] -> a
 init             :: [a] -> [a]
     NSArray* initial(Iter it);
 null             :: [a] -> Bool
-    BOOL falsy(Iter it);
-    BOOL truthy(Iter it);
+    BOOL falsy(id x);
+    BOOL truthy(id x);
 -- length           :: [a] -> Int
 -- (!!)                :: [a] -> Int -> a
 foldl            :: (a -> b -> a) -> a -> [b] -> a
@@ -85,7 +85,7 @@ take                   :: Int -> [a] -> [a]
 drop                   :: Int -> [a] -> [a]
     NSArray* drop(Iter it, long n);
 splitAt                  :: Int -> [a] -> ([a],[a])
-    NSArray* splitAt(Iter it, long n);
+    Tuple2 splitAt(Iter it, long n);
 takeWhile               :: (a -> Bool) -> [a] -> [a]
     NSArray* takeWhile(Iter it, Predicate p);
 dropWhile               :: (a -> Bool) -> [a] -> [a]
