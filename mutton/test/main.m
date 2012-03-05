@@ -270,6 +270,23 @@ static void test_tail_iter() {
 }
 
 
+#pragma mark take (iter)
+static void test_take_iter() {
+    ass  ( !take(nil, 0) );
+    ass  ( !take(emptylist(), 0) );
+    
+    asseq( emptylist(), take(emptylist(), 0) );
+    asseq( emptylist(), take(emptylist(), 1) );
+    asseq( foo        , take(list(foo, bar), 1) );
+    
+    asseq( emptylist(),         take(list(foo, bar, baz), 0) );
+    asseq( foo,                 take(list(foo, bar, baz), 1) );
+    asseq( list(foo, bar),      take(list(foo, bar, baz), 2) );
+    asseq( list(foo, bar, baz), take(list(foo, bar, baz), 3) );
+    asseq( list(foo, bar, baz), take(list(foo, bar, baz), 4) );
+}
+
+
 #pragma mark truthy (bool)
 static void test_truthy_bool() {
     // This hardly needs testing, does it?
@@ -331,6 +348,7 @@ int main(void) {
     test_responds_object();
     test_reverse_iter();
     test_tail_iter();
+    test_take_iter();
     test_truthy_bool();
     test_uniqued_iter();
     test_until_iter();

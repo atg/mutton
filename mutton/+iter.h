@@ -247,6 +247,26 @@ static id tail(Iter it) {
     yield_stop;
 }
 
+/// ___
+// (in iter)
+static NSArray* take(Iter it, long n) {
+    if (!it)
+        return nil;
+        
+    yield_start;
+    
+    long i = 0;
+    for (id x in it) {
+        if (i >= n)
+            break;
+        
+        yield(x);
+        i++;
+    }
+    
+    yield_stop;
+}
+
 /// Remove duplicate objects, as determined by their -hash and isEqual: (i.e., the objects are inserted into an NSSet to determine equality). O(n).
 // (in iter)
 static NSArray* uniqued(Iter it) {
