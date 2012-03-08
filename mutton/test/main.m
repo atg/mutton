@@ -93,11 +93,6 @@ static void test_drop_iter() {
     ass  ( !drop(nil, 1) );
     ass  ( !drop(nil, 10) );
     
-    asseq( emptylist(), drop(emptylist(), 0) );    
-    asseq( emptylist(), drop(emptylist(), 1) );    
-    asseq( emptylist(), drop(emptylist(), 10) );    
-
-    asseq( emptylist(), drop(list(foo), 1) );    
     asseq( emptylist(), drop(list(foo), 2) );
     asseq( emptylist(), drop(list(foo), 10) );
     
