@@ -115,19 +115,19 @@ static id initial(Iter it) {
 
 /// A bit like componentsJoinedByString: but with general purpose iterables instead of strings.
 // (in iter)
-// (after count)
-static NSArray* intersperse(Iter it, id x) {
+static NSArray* intersperse(Iter it, id glue) {
     if (!it)
         return nil;
+    
     yield_start;
-    BOOL isFirst = YES;
-    for (id y in it) {
-        if (isFirst)
-            isFirst = NO;
-        else
-            yield(x);
-        yield(y);
+    
+    for (id x in it) {
+        yield(x);
+        yield(glue);
     }
+    
+    [mutton_yield_v_ removeLastObject];
+
     yield_stop;
 }
 
@@ -234,10 +234,13 @@ static NSArray* split(Iter it, id token) {
     if (!it)
         return nil;
     
+    BOOL isEmpty = YES;
+    
     yield_start;
     
     NSMutableArray* temp = [[NSMutableArray alloc] init];
     for (id x in it) {
+        isEmpty = NO;
         if (x == token) {
             yield(temp);
             temp = [[NSMutableArray alloc] init];
@@ -246,6 +249,10 @@ static NSArray* split(Iter it, id token) {
         }
     }
     
+    if (isEmpty)
+        return emptylist();
+    
+    yield(temp);
     yield_stop;
 }
 
@@ -273,9 +280,9 @@ static id tail(Iter it) {
 static NSArray* take(Iter it, long n) {
     if (!it)
         return nil;
-        
+
     yield_start;
-    
+
     long i = 0;
     for (id x in it) {
         if (i >= n)
@@ -284,7 +291,7 @@ static NSArray* take(Iter it, long n) {
         yield(x);
         i++;
     }
-    
+
     yield_stop;
 }
 

@@ -271,8 +271,7 @@ static void test_split_iter() {
             list(@"a", @"b"), 
             emptylist(),
             emptylist(),
-            list(@"c", @"d", @"e"), 
-            emptylist() ),
+            list(@"c", @"d", @"e") ),
         split(list(foo, @"a", @"b", foo, foo, foo, @"c", @"d", @"e"), foo) );
 }
 
@@ -294,10 +293,10 @@ static void test_take_iter() {
     
     asseq( emptylist(), take(emptylist(), 0) );
     asseq( emptylist(), take(emptylist(), 1) );
-    asseq( foo        , take(list(foo, bar), 1) );
+    asseq( list(foo),   take(list(foo, bar), 1) );
     
     asseq( emptylist(),         take(list(foo, bar, baz), 0) );
-    asseq( foo,                 take(list(foo, bar, baz), 1) );
+    asseq( list(foo),           take(list(foo, bar, baz), 1) );
     asseq( list(foo, bar),      take(list(foo, bar, baz), 2) );
     asseq( list(foo, bar, baz), take(list(foo, bar, baz), 3) );
     asseq( list(foo, bar, baz), take(list(foo, bar, baz), 4) );
