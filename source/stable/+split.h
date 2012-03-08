@@ -6,10 +6,13 @@ static NSArray* split(Iter it, id token) {
     if (!it)
         return nil;
     
+    BOOL isEmpty = YES;
+    
     yield_start;
     
     NSMutableArray* temp = [[NSMutableArray alloc] init];
     for (id x in it) {
+        isEmpty = NO;
         if (x == token) {
             yield(temp);
             temp = [[NSMutableArray alloc] init];
@@ -18,6 +21,10 @@ static NSArray* split(Iter it, id token) {
         }
     }
     
+    if (isEmpty)
+        return emptylist();
+    
+    yield(temp);
     yield_stop;
 }
 
@@ -37,8 +44,7 @@ test {
             list(@"a", @"b"), 
             emptylist(),
             emptylist(),
-            list(@"c", @"d", @"e"), 
-            emptylist() ),
+            list(@"c", @"d", @"e") ),
         split(list(foo, @"a", @"b", foo, foo, foo, @"c", @"d", @"e"), foo) );
 }
 
