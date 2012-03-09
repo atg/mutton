@@ -126,7 +126,8 @@ static NSArray* intersperse(Iter it, id glue) {
         yield(glue);
     }
     
-    [mutton_yield_v_ removeLastObject];
+    if ([mutton_yield_v_])
+        [mutton_yield_v_ removeLastObject];
 
     yield_stop;
 }
