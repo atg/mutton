@@ -2,19 +2,19 @@
 
 /// A bit like componentsJoinedByString: but with general purpose iterables instead of strings.
 // (in iter)
-// (after count)
-static NSArray* intersperse(Iter it, id x) {
+static NSArray* intersperse(Iter it, id glue) {
     if (!it)
         return nil;
+    
     yield_start;
-    BOOL isFirst = YES;
-    for (id y in it) {
-        if (isFirst)
-            isFirst = NO;
-        else
-            yield(x);
-        yield(y);
+    
+    for (id x in it) {
+        yield(x);
+        yield(glue);
     }
+    
+    [mutton_yield_v_ removeLastObject];
+
     yield_stop;
 }
 

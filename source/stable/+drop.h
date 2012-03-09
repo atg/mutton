@@ -18,7 +18,7 @@ static NSArray* drop(Iter it, long n) {
         else
             i++;
     }
-    
+
     yield_stop;
 }
 
@@ -28,11 +28,6 @@ test {
     ass  ( !drop(nil, 1) );
     ass  ( !drop(nil, 10) );
     
-    asseq( emptylist(), drop(emptylist(), 0) );    
-    asseq( emptylist(), drop(emptylist(), 1) );    
-    asseq( emptylist(), drop(emptylist(), 10) );    
-
-    asseq( emptylist(), drop(list(foo), 1) );    
     asseq( emptylist(), drop(list(foo), 2) );
     asseq( emptylist(), drop(list(foo), 10) );
     

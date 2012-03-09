@@ -68,7 +68,7 @@ static NSArray* drop(Iter it, long n) {
         else
             i++;
     }
-    
+
     yield_stop;
 }
 
@@ -115,19 +115,19 @@ static id initial(Iter it) {
 
 /// A bit like componentsJoinedByString: but with general purpose iterables instead of strings.
 // (in iter)
-// (after count)
-static NSArray* intersperse(Iter it, id x) {
+static NSArray* intersperse(Iter it, id glue) {
     if (!it)
         return nil;
+    
     yield_start;
-    BOOL isFirst = YES;
-    for (id y in it) {
-        if (isFirst)
-            isFirst = NO;
-        else
-            yield(x);
-        yield(y);
+    
+    for (id x in it) {
+        yield(x);
+        yield(glue);
     }
+    
+    [mutton_yield_v_ removeLastObject];
+
     yield_stop;
 }
 
@@ -228,6 +228,34 @@ static id reverse(Iter it) {
         return reverse(iter(it));
 }
 
+/// A bit like componentsSeparatedByString: but with general purpose iterables instead of of strings
+// (in iter)
+static NSArray* split(Iter it, id token) {
+    if (!it)
+        return nil;
+    
+    BOOL isEmpty = YES;
+    
+    yield_start;
+    
+    NSMutableArray* temp = [[NSMutableArray alloc] init];
+    for (id x in it) {
+        isEmpty = NO;
+        if (x == token) {
+            yield(temp);
+            temp = [[NSMutableArray alloc] init];
+        } else {
+            [temp addObject:x];
+        }
+    }
+    
+    if (isEmpty)
+        return emptylist();
+    
+    yield(temp);
+    yield_stop;
+}
+
 /// Extract the elements after the head of a list.
 // (in iter)
 static id tail(Iter it) {
@@ -244,6 +272,26 @@ static id tail(Iter it) {
         else
             yield(x);
     } 
+    yield_stop;
+}
+
+/// ___
+// (in iter)
+static NSArray* take(Iter it, long n) {
+    if (!it)
+        return nil;
+
+    yield_start;
+
+    long i = 0;
+    for (id x in it) {
+        if (i >= n)
+            break;
+        
+        yield(x);
+        i++;
+    }
+
     yield_stop;
 }
 
