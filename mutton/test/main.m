@@ -96,7 +96,7 @@ static void test_drop_iter() {
     asseq( emptylist(), drop(emptylist(), 0) );    
     asseq( emptylist(), drop(emptylist(), 1) );    
     asseq( emptylist(), drop(emptylist(), 10) );    
-
+    
     asseq( emptylist(), drop(list(foo), 1) );    
     asseq( emptylist(), drop(list(foo), 2) );
     asseq( emptylist(), drop(list(foo), 10) );
@@ -112,7 +112,7 @@ static void test_drop_iter() {
     asseq( list(foo), drop(list(foo), 0) );
     asseq( list(foo), drop(list(bar, foo), 1) );
     asseq( list(foo), drop(list(bar, baz, foo), 2) );
-
+    
     asseq( list(baz, foo), drop(list(bar, baz, foo), 1) );
 }
 
@@ -260,6 +260,27 @@ static void test_reverse_iter() {
 }
 
 
+#pragma mark split (iter)
+static void test_split_iter() {
+    ass  (! split(nil, foo) );
+    asseq(emptylist(), split(emptylist(), foo) );
+    asseq(list(list(@"a")), split(list(@"a"), foo) );
+    asseq(list(list(@"a", @"b")), split(list(@"a", @"b"), foo) );
+    asseq(list(list(@"a", @"b"), emptylist()), split(list(@"a", @"b", foo), foo) );
+    asseq(list(emptylist(), list(@"a", @"b")), split(list(foo, @"a", @"b"), foo) );
+    asseq(list(emptylist(), list(@"a", @"b"), emptylist()), split(list(foo, @"a", @"b", foo), foo) );
+    asseq(list(list(@"a", @"b"), list(@"c", @"d", @"e")), split(list(@"a", @"b", foo, @"c", @"d", @"e"), foo) );
+    asseq(
+        list(
+            emptylist(), 
+            list(@"a", @"b"), 
+            emptylist(),
+            emptylist(),
+            list(@"c", @"d", @"e") ),
+        split(list(foo, @"a", @"b", foo, foo, foo, @"c", @"d", @"e"), foo) );
+}
+
+
 #pragma mark tail (iter)
 static void test_tail_iter() {
     ass  ( !tail(nil) );
@@ -267,6 +288,32 @@ static void test_tail_iter() {
     asseq(emptylist(), tail(list(foo)) );
     asseq(list(bar), tail(list(foo, bar)) );
     asseq(list(bar, baz), tail(list(foo, bar, baz)) );
+}
+
+
+#pragma mark take (iter)
+static void test_take_iter() {
+    ass  ( !take(nil, 0) );
+    ass  ( !take(nil, 1) );
+    ass  ( !take(nil, 10) );
+    
+    asseq( emptylist(), take(emptylist(),           0) );
+    asseq( emptylist(), take(list(foo),             0) );
+    asseq( emptylist(), take(list(foo, bar),        0) );
+    asseq( emptylist(), take(list(foo, bar, baz),   0) );
+
+    asseq( emptylist(), take(emptylist(),  2) );
+    asseq( emptylist(), take(emptylist(),  3) );
+    asseq( emptylist(), take(emptylist(), 10) );
+    
+    asseq( list(foo),           take(list(foo),           1) );
+    asseq( list(foo, bar),      take(list(foo, bar),      2) );
+    asseq( list(foo, bar, baz), take(list(foo, bar, baz), 3) );
+    
+    asseq( list(foo),           take(list(foo, bar, baz), 1) );
+    asseq( list(foo, bar),      take(list(foo, bar, baz), 2) );
+    asseq( list(foo, bar, baz), take(list(foo, bar, baz), 3) );
+    asseq( list(foo, bar, baz), take(list(foo, bar, baz), 4) );
 }
 
 
@@ -330,7 +377,9 @@ int main(void) {
     test_replicate_iter();
     test_responds_object();
     test_reverse_iter();
+    test_split_iter();
     test_tail_iter();
+    test_take_iter();
     test_truthy_bool();
     test_uniqued_iter();
     test_until_iter();
