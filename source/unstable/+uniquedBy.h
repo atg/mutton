@@ -4,13 +4,11 @@
 /// Remove duplicate objects, as determined by a binary predicate. O(n^2).
 // (in iter)
 static NSArray* uniquedBy(Iter it, BinaryPredicate p) {
-    NSMutableArray* result = [NSMutableArray array];
-    
-    
+    yield_start;
     
     for (id x in it) {
         BOOL isDupe = NO;
-        for (id y in result) {
+        for (id y in mutton_yield_v) {
             if (p(x, y)) {
                 isDupe = YES;
                 break;
@@ -18,10 +16,10 @@ static NSArray* uniquedBy(Iter it, BinaryPredicate p) {
         }
         
         if (!isDupe)
-            [result addObject:x];
+            yield(x);
     }
     
-    return result;
+    yield_stop;
 }
 
 

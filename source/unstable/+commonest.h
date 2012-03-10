@@ -2,11 +2,11 @@
 #include "+support.h"
 
 /// ___
-// (in fold)
-static id foldl(Iter it, Mapping f) {
+// (in iter)
+static NSArray* commonest(Iter it) {
     // TODO: Implement me!
-    id temp;
-    return temp;
+    
+    return emptylist();
 }
 
 

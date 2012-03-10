@@ -2,6 +2,49 @@
 #include "+support.h"
 
 
+#pragma mark all (iter)
+static void test_all_iter() {
+    // TODO: Add tests to me!
+
+    ass( !all(nil, foo) );
+    
+    ass( all(emptylist(), foo) );
+    ass( all(list(foo) , foo) );
+    ass( all(list(foo,foo), foo) );
+    ass( all(list(foo, foo, foo), foo) );
+
+    ass( !all(list(foo, bar), foo) );
+    ass( !all(list(bar, foo), foo) );
+
+    ass( !all(list(foo, foo, bar), foo) );
+    ass( !all(list(foo, bar, foo), foo) );
+    ass( !all(list(bar, foo, foo), foo) );
+}
+
+
+#pragma mark any (iter)
+static void test_any_iter() {
+    // TODO: Add tests to me!
+    ass( !any(nil, 0) );
+    
+    ass( any(list(foo, bar, baz), foo) );
+    ass( any(list(foo, bar, baz), bar) );
+    ass( any(list(baz, foo, bar, baz), baz) );
+    
+    ass( any(list(foo, bar), foo) );
+    ass( any(list(bar, foo), foo) );
+    
+    ass( any(list(foo, foo, bar), bar) );
+    ass( any(list(foo, bar, foo), bar) );
+    ass( any(list(bar, foo, foo), bar) );
+    
+    ass( !any(emptylist(),         foo) );
+    ass( !any(list(foo),           baz) );
+    ass( !any(list(foo, bar),      baz) );
+    ass( !any(list(foo, bar, bar), baz) );
+}
+
+
 #pragma mark applyIf (func)
 static void test_applyIf_func() {
     ass  (!applyIf(nil, nil));
@@ -354,6 +397,8 @@ static void test_until_iter() {
 #pragma mark main
 int main(void) {
   @autoreleasepool {
+    test_all_iter();
+    test_any_iter();
     test_applyIf_func();
     test_byCompose_func();
     test_byConst_func();
