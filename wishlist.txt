@@ -3,11 +3,7 @@
     
     fold
     
-    intersperse
-    
     uniqueBy (needs tests)
-    take (needs tests)
-    drop (needs tests)
     
     all
     any
