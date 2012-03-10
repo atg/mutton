@@ -4,7 +4,7 @@
 
 #pragma mark all (iter)
 static void test_all_iter() {
-    ass( !all(nil, ^ BOOL (id x) { return x == foo; }) );
+    ass( !all(nil, 0) );
     
     ass( all(emptylist(), ^ BOOL (id x) { return x == foo; }) );
     ass( all(list(foo) , ^ BOOL (id x) { return x == foo; }) );
