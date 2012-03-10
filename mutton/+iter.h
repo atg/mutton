@@ -4,29 +4,28 @@
 #import <Foundation/Foundation.h>
 #include "+support.h"
 
-/// ___
+/// Returns true if all 
 // (in iter)
-static BOOL all(Iter it, id x) {
+static BOOL all(Iter it, Predicate p) {
     // TODO: Implement me!
     if (!it)
       return nil;
     
-    for (id y in it)
-      if (![x isEqual:y])
+    for (id x in it)
+      if (!p(x))
         return NO;
 
     return YES;
 }
 
-/// ___
+/// Returns true if the predicate validates to any of the elements, false otherwise.
 // (in iter)
-static BOOL any(Iter it, id x) {
-    // TODO: Implement me!
+static BOOL any(Iter it, Predicate p) {
     if (!it)
       return nil;
     
-    for (id y in it)
-      if ([x isEqual:y])
+    for (id x in it)
+      if (p(x))
         return YES;
     
     return NO;

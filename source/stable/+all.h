@@ -1,15 +1,15 @@
 #import "+type.h"
 #include "+support.h"
 
-/// ___
+/// Returns true if all 
 // (in iter)
-static BOOL all(Iter it, id x) {
+static BOOL all(Iter it, Predicate p) {
     // TODO: Implement me!
     if (!it)
       return nil;
     
-    for (id y in it)
-      if (![x isEqual:y])
+    for (id x in it)
+      if (!p(x))
         return NO;
 
     return YES;
@@ -17,21 +17,19 @@ static BOOL all(Iter it, id x) {
 
 
 test {
-    // TODO: Add tests to me!
-
-    ass( !all(nil, foo) );
+    ass( !all(nil, ^ BOOL (id x) { return x == foo; }) );
     
-    ass( all(emptylist(), foo) );
-    ass( all(list(foo) , foo) );
-    ass( all(list(foo,foo), foo) );
-    ass( all(list(foo, foo, foo), foo) );
+    ass( all(emptylist(), ^ BOOL (id x) { return x == foo; }) );
+    ass( all(list(foo) , ^ BOOL (id x) { return x == foo; }) );
+    ass( all(list(foo,foo), ^ BOOL (id x) { return x == foo; }) );
+    ass( all(list(foo, foo, foo), ^ BOOL (id x) { return x == foo; }) );
 
-    ass( !all(list(foo, bar), foo) );
-    ass( !all(list(bar, foo), foo) );
+    ass( !all(list(foo, bar), ^ BOOL (id x) { return x == foo; }) );
+    ass( !all(list(bar, foo), ^ BOOL (id x) { return x == foo; }) );
 
-    ass( !all(list(foo, foo, bar), foo) );
-    ass( !all(list(foo, bar, foo), foo) );
-    ass( !all(list(bar, foo, foo), foo) );
+    ass( !all(list(foo, foo, bar), ^ BOOL (id x) { return x == foo; }) );
+    ass( !all(list(foo, bar, foo), ^ BOOL (id x) { return x == foo; }) );
+    ass( !all(list(bar, foo, foo), ^ BOOL (id x) { return x == foo; }) );
 }
 
 #include "+unsupport.h"

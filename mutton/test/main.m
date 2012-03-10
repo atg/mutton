@@ -4,44 +4,41 @@
 
 #pragma mark all (iter)
 static void test_all_iter() {
-    // TODO: Add tests to me!
-
-    ass( !all(nil, foo) );
+    ass( !all(nil, ^ BOOL (id x) { return x == foo; }) );
     
-    ass( all(emptylist(), foo) );
-    ass( all(list(foo) , foo) );
-    ass( all(list(foo,foo), foo) );
-    ass( all(list(foo, foo, foo), foo) );
+    ass( all(emptylist(), ^ BOOL (id x) { return x == foo; }) );
+    ass( all(list(foo) , ^ BOOL (id x) { return x == foo; }) );
+    ass( all(list(foo,foo), ^ BOOL (id x) { return x == foo; }) );
+    ass( all(list(foo, foo, foo), ^ BOOL (id x) { return x == foo; }) );
 
-    ass( !all(list(foo, bar), foo) );
-    ass( !all(list(bar, foo), foo) );
+    ass( !all(list(foo, bar), ^ BOOL (id x) { return x == foo; }) );
+    ass( !all(list(bar, foo), ^ BOOL (id x) { return x == foo; }) );
 
-    ass( !all(list(foo, foo, bar), foo) );
-    ass( !all(list(foo, bar, foo), foo) );
-    ass( !all(list(bar, foo, foo), foo) );
+    ass( !all(list(foo, foo, bar), ^ BOOL (id x) { return x == foo; }) );
+    ass( !all(list(foo, bar, foo), ^ BOOL (id x) { return x == foo; }) );
+    ass( !all(list(bar, foo, foo), ^ BOOL (id x) { return x == foo; }) );
 }
 
 
 #pragma mark any (iter)
 static void test_any_iter() {
-    // TODO: Add tests to me!
     ass( !any(nil, 0) );
     
-    ass( any(list(foo, bar, baz), foo) );
-    ass( any(list(foo, bar, baz), bar) );
-    ass( any(list(baz, foo, bar, baz), baz) );
+    ass( any(list(foo, bar, baz), ^ BOOL (id x) { return x == foo; }) );
+    ass( any(list(foo, bar, baz), ^ BOOL (id x) { return x == bar; }) );
+    ass( any(list(baz, foo, bar, baz), ^ BOOL (id x) { return [x isEqual:baz]; }) );
     
-    ass( any(list(foo, bar), foo) );
-    ass( any(list(bar, foo), foo) );
+    ass( any(list(foo, bar), ^ BOOL (id x) { return x == foo; }) );
+    ass( any(list(bar, foo), ^ BOOL (id x) { return x == foo; }) );
     
-    ass( any(list(foo, foo, bar), bar) );
-    ass( any(list(foo, bar, foo), bar) );
-    ass( any(list(bar, foo, foo), bar) );
+    ass( any(list(foo, foo, bar), ^ BOOL (id x) { return x == bar; }) );
+    ass( any(list(foo, bar, foo), ^ BOOL (id x) { return x == bar; }) );
+    ass( any(list(bar, foo, foo), ^ BOOL (id x) { return x == bar; }) );
     
-    ass( !any(emptylist(),         foo) );
-    ass( !any(list(foo),           baz) );
-    ass( !any(list(foo, bar),      baz) );
-    ass( !any(list(foo, bar, bar), baz) );
+    ass( !any(emptylist(),         ^ BOOL (id x) { return x == foo; }) );
+    ass( !any(list(foo),           ^ BOOL (id x) { return x == baz; }) );
+    ass( !any(list(foo, bar),      ^ BOOL (id x) { return x == baz; }) );
+    ass( !any(list(foo, bar, bar), ^ BOOL (id x) { return x == baz; }) );
 }
 
 

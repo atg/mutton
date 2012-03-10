@@ -1,15 +1,14 @@
 #import "+type.h"
 #include "+support.h"
 
-/// ___
+/// Returns true if the predicate validates to any of the elements, false otherwise.
 // (in iter)
-static BOOL any(Iter it, id x) {
-    // TODO: Implement me!
+static BOOL any(Iter it, Predicate p) {
     if (!it)
       return nil;
     
-    for (id y in it)
-      if ([x isEqual:y])
+    for (id x in it)
+      if (p(x))
         return YES;
     
     return NO;
@@ -17,24 +16,23 @@ static BOOL any(Iter it, id x) {
 
 
 test {
-    // TODO: Add tests to me!
     ass( !any(nil, 0) );
     
-    ass( any(list(foo, bar, baz), foo) );
-    ass( any(list(foo, bar, baz), bar) );
-    ass( any(list(baz, foo, bar, baz), baz) );
+    ass( any(list(foo, bar, baz), ^ BOOL (id x) { return x == foo; }) );
+    ass( any(list(foo, bar, baz), ^ BOOL (id x) { return x == bar; }) );
+    ass( any(list(baz, foo, bar, baz), ^ BOOL (id x) { return [x isEqual:baz]; }) );
     
-    ass( any(list(foo, bar), foo) );
-    ass( any(list(bar, foo), foo) );
+    ass( any(list(foo, bar), ^ BOOL (id x) { return x == foo; }) );
+    ass( any(list(bar, foo), ^ BOOL (id x) { return x == foo; }) );
     
-    ass( any(list(foo, foo, bar), bar) );
-    ass( any(list(foo, bar, foo), bar) );
-    ass( any(list(bar, foo, foo), bar) );
+    ass( any(list(foo, foo, bar), ^ BOOL (id x) { return x == bar; }) );
+    ass( any(list(foo, bar, foo), ^ BOOL (id x) { return x == bar; }) );
+    ass( any(list(bar, foo, foo), ^ BOOL (id x) { return x == bar; }) );
     
-    ass( !any(emptylist(),         foo) );
-    ass( !any(list(foo),           baz) );
-    ass( !any(list(foo, bar),      baz) );
-    ass( !any(list(foo, bar, bar), baz) );
+    ass( !any(emptylist(),         ^ BOOL (id x) { return x == foo; }) );
+    ass( !any(list(foo),           ^ BOOL (id x) { return x == baz; }) );
+    ass( !any(list(foo, bar),      ^ BOOL (id x) { return x == baz; }) );
+    ass( !any(list(foo, bar, bar), ^ BOOL (id x) { return x == baz; }) );
 }
 
 #include "+unsupport.h"
