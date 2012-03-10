@@ -4,6 +4,34 @@
 #import <Foundation/Foundation.h>
 #include "+support.h"
 
+/// ___
+// (in iter)
+static BOOL all(Iter it, id x) {
+    // TODO: Implement me!
+    if (!it)
+      return nil;
+    
+    for (id y in it)
+      if (![x isEqual:y])
+        return NO;
+
+    return YES;
+}
+
+/// ___
+// (in iter)
+static BOOL any(Iter it, id x) {
+    // TODO: Implement me!
+    if (!it)
+      return nil;
+    
+    for (id y in it)
+      if ([x isEqual:y])
+        return YES;
+    
+    return NO;
+}
+
 /// Glue together an array of arrays (or iterable of iterables) to make one big array.
 // (in iter)
 static NSArray* concat(Iter it) {
