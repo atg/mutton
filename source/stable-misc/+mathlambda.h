@@ -6,8 +6,7 @@
 //   cuberoot(27.0) --> 3.0
 
 typedef long (^ZtoZ)(long);
-#define lambdaZ(var, body) (^ long (long var) { body })
+#define lambdaZ(var, body) (^ long (long var) { return body; })
 
 typedef double (^RtoR)(double);
-#define lambdaR(var, body) (^ double (double var) { body })
-
+#define lambdaR(var, body) (^ double (double var) { return body; })
