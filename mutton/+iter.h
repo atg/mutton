@@ -31,6 +31,19 @@ static BOOL any(Iter it, Predicate p) {
     return NO;
 }
 
+/// Keep only the elements of a list for with the predicate is true.
+// (in iter)
+static NSArray* filter(Iter it, Predicate p) {
+    if (!it)
+        return nil;
+    yield_start;
+    for (id x in it) {
+        if (p(x))
+            yield(x);
+    }
+    yield_stop;
+}
+
 /// Glue together an array of arrays (or iterable of iterables) to make one big array.
 // (in iter)
 static NSArray* concat(Iter it) {
@@ -63,6 +76,12 @@ static NSArray* map(Iter it, Mapping f) {
             yield(y);
     } 
     yield_stop;
+}
+
+/// Tells if the array contains the object.
+// (in iter)
+static BOOL contains(Iter it, id x) {
+  return any(it, ^ BOOL (id y) { return [y isEqual:x]; });
 }
 
 /// Find the number of objects in an array or iterable.
@@ -99,17 +118,11 @@ static NSArray* drop(Iter it, long n) {
     yield_stop;
 }
 
-/// Keep only the elements of a list for with the predicate is true.
+/// Removes falsy values from the array.
 // (in iter)
-static NSArray* filter(Iter it, Predicate p) {
-    if (!it)
-        return nil;
-    yield_start;
-    for (id x in it) {
-        if (p(x))
-            yield(x);
-    }
-    yield_stop;
+// (after filter)
+static NSArray* compact(Iter it) {
+    return filter(it, ^ BOOL (id x) { return truthy(x); });
 }
 
 /// Find the first object of the iterable, or nil if it's empty.

@@ -97,6 +97,21 @@ static void test_byIdentity_func() {
 }
 
 
+#pragma mark compact (iter)
+static void test_compact_iter() {
+    ass( !compact(nil) );
+    
+    asseq( emptylist(), compact(emptylist())    );
+    asseq( emptylist(), compact(list(@""))      );
+    asseq( emptylist(), compact(list(@"", @"")) );
+    
+    asseq( list(foo), compact(list(@"", foo)) );
+    asseq( list(foo), compact(list(foo, @"")) );
+
+    asseq( list(foo, bar, baz), compact(list(foo, @"", bar, @"", baz)) );
+}
+
+
 #pragma mark concat (iter)
 static void test_concat_iter() {
     NSArray* a = list(foo, bar, baz);
@@ -114,6 +129,28 @@ static void test_concat_iter() {
 #pragma mark concatMap (iter)
 static void test_concatMap_iter() {
     ass  ( !concatMap(nil, nil) );
+}
+
+
+#pragma mark contains (iter)
+static void test_contains_iter() {
+    ass( !contains(nil, 0) );
+    
+    ass( contains(list(foo, bar, baz), foo) );
+    ass( contains(list(foo, bar, baz), bar) );
+    ass( contains(list(baz, foo, bar, baz), baz) );
+    
+    ass( contains(list(foo, bar), foo) );
+    ass( contains(list(bar, foo), foo) );
+    
+    ass( contains(list(foo, foo, bar), bar) );
+    ass( contains(list(foo, bar, foo), bar) );
+    ass( contains(list(bar, foo, foo), bar) );
+    
+    ass( !contains(emptylist(),         foo) );
+    ass( !contains(list(foo),           baz) );
+    ass( !contains(list(foo, bar),      baz) );
+    ass( !contains(list(foo, bar, bar), baz) );
 }
 
 
@@ -402,8 +439,10 @@ int main(void) {
     test_byFlip_func();
     test_byFunction_func();
     test_byIdentity_func();
+    test_compact_iter();
     test_concat_iter();
     test_concatMap_iter();
+    test_contains_iter();
     test_count_iter();
     test_drop_iter();
     test_falsy_bool();
