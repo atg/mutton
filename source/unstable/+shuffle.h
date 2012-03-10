@@ -1,10 +1,22 @@
 #import "+type.h"
 #include "+support.h"
 
-/// ___
+/// Randomly shuffle an iterable.
 // (in random)
-static ___ shuffle(___) {
-    // TODO: Implement me!
+static NSArray* shuffle(Iter it) {
+    if (!it)
+        return nil;
+    NSMutableArray* population = [iter(it) mutableCopy];
+    long n = [population count];
+    if (!n)
+        return population;
+    
+    for (long i = 0; i < n; i++) {
+        long j = randint(0, ); // TODO: is this right?
+        x[i], x[j] = x[j], x[i]
+        [population exchangeObjectAtIndex:i withObjectAtIndex:j];
+    }
+    return population;
 }
 
 
