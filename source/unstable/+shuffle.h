@@ -13,8 +13,8 @@ static NSArray* shuffle(Iter it) {
     
     for (long i = 0; i < n; i++) {
         long j = randint(0, ); // TODO: is this right?
-        x[i], x[j] = x[j], x[i]
-        [population exchangeObjectAtIndex:i withObjectAtIndex:j];
+        if (i != j)
+            [population exchangeObjectAtIndex:i withObjectAtIndex:j];
     }
     return population;
 }
