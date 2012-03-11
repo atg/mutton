@@ -75,7 +75,6 @@ DESIRED functions
   unzipWith
   without
   zip
-  zipWith
 
 UNSTABLE functions
   any
@@ -143,4 +142,5 @@ STABLE functions
   truthy
   uniqued
   until
+  zipWith
 

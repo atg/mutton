@@ -435,4 +435,27 @@ static id until(Predicate p, Mapping f, id x) {
     return x;
 }
 
+/// Zips both arrays using the BinaryMapping. That's what.
+// (in iter)
+// (after count)
+// (after objectAt)
+static NSArray* zipWith(Iter a, Iter b, BinaryMapping f) {
+    if (!a || !b)
+      return nil;
+
+    long tempa = count(a);
+    long tempb = count(b);
+    
+    long count = (tempa > tempb) ? tempb : tempa;
+    
+    yield_start;
+    
+    for (long i=0; i < count; ++i)
+    {
+      yield( f(objectAt(a, i), objectAt(b, i)) );
+    }
+    
+    yield_stop;
+}
+
 #include "+unsupport.h"

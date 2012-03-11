@@ -525,6 +525,33 @@ static void test_until_iter() {
 }
 
 
+#pragma mark zipWith (iter)
+static void test_zipWith_iter() {
+    BinaryMapping plussing = ^id(id x, id y) { return list(x,y); };
+    
+    ass( !zipWith(emptylist(), nil, plussing) );
+    ass( !zipWith(nil, emptylist(), plussing) );
+    
+    asseq( emptylist(), zipWith(emptylist(), emptylist(), plussing) );
+    
+    asseq(
+      list(list(@"a",@"a")),
+      zipWith(list(@"a"), list(@"a"), plussing) );
+
+    asseq(
+      list(list(@"a",@"c"), list(@"b",@"d")),
+      zipWith(list(@"a",@"b"), list(@"c",@"d"), plussing) );
+
+    asseq(
+      list(list(@"a",@"d"), list(@"b",@"e")),
+      zipWith(list(@"a",@"b",@"c"), list(@"d",@"e"), plussing) );
+
+    asseq(
+      list(list(@"a",@"d"), list(@"b",@"e"), list(@"c",@"f")),
+      zipWith(list(@"a",@"b",@"c"), list(@"d",@"e",@"f"), plussing) );
+}
+
+
 #pragma mark main
 int main(void) {
   @autoreleasepool {
@@ -569,6 +596,7 @@ int main(void) {
     test_truthy_bool();
     test_uniqued_iter();
     test_until_iter();
+    test_zipWith_iter();
   }
   int failed = mutton_failed_assertion_count;
   int allassertions = mutton_all_assertion_count;
