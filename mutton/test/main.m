@@ -50,6 +50,12 @@ static void test_applyIf_func() {
 }
 
 
+#pragma mark byBinarySel (func)
+static void test_byBinarySel_func() {
+    // TODO: Add tests to me!
+}
+
+
 #pragma mark byCompose (func)
 static void test_byCompose_func() {
     Mapping allocate = ^id(id x) { return [x alloc]; };
@@ -82,8 +88,7 @@ static void test_byFlip_func() {
 static void test_byFunction_func() {
     ass  (!byFunction(NULL));
     
-// This test passes OK, but clang a warning. Can't figure it out.
-    Mapping f = byFunction(&byConst);
+    Mapping f = byFunction((id(*)(id))&byConst);
     Mapping g = f(foo);
     id h = g(bar);
     asseq(foo, h);
@@ -235,14 +240,14 @@ static void test_first_iter() {
 static void test_flatten_iter() {
     ass  ( !flatten(nil) );
     asseq( emptylist(), flatten(emptylist()) );
-    asseq( list(foo, bar, baz), flatten(list(foo, bar, baz)) );
-    asseq( list(foo, bar, baz, foo, bar, baz, foo, bar, baz), flatten(list(list(foo, bar, baz), emptylist(), list(foo, emptylist(), bar, baz, list(foo, bar, baz, list(emptylist()))))) ); // if THAT doesn't do it, nothing will
+    asseq( list(@"foo", @"bar", @"baz"), flatten(list(@"foo", @"bar", @"baz")) );
+    asseq( list(@"foo", @"bar", @"baz", @"foo", @"bar", @"baz", @"foo", @"bar", @"baz"), flatten(list(list(@"foo", @"bar", @"baz"), emptylist(), list(@"foo", emptylist(), @"bar", @"baz", list(@"foo", @"bar", @"baz", list(emptylist()))))) ); // if THAT doesn't do it, nothing will
 }
 
 
 #pragma mark foldl (fold)
 static void test_foldl_fold() {
-    BinaryMapping cc = bySel(@selector(stringByAppendingString:));
+    BinaryMapping cc = byBinarySel(@selector(stringByAppendingString:));
     
     ass  ( !foldl(nil, @"", cc));
     asseq( @"foobarbaz", foldl(list(@"foo", @"bar", @"baz"), @"", cc));
@@ -334,12 +339,18 @@ static void test_objectAt_iter() {
 }
 
 
+#pragma mark performSel (object)
+static void test_performSel_object() {
+    // TODO: Add tests to me!
+}
+
+
 #pragma mark randint (random)
 static void test_randint_random() {
     #define mut_testrandom(p) { BOOL b_ = YES; for (long i_ = 0; i_ < 500; i_++) { \
-        b_ &&= p(); \
+        b_ &= p(); \
     } ass(b_); }
-    #define mut_locinrange(v, low, high) ({ long v_ = v; v >= low && v <= high ; })
+    #define mut_locinrange(v, low, high) ({ long v_ = v; v_ >= low && v_ <= high ; })
     
     mut_testrandom(^{ return randint(10, 10) == 10; })
     mut_testrandom(^{ return randint(-10, -10) == -10; })
@@ -520,6 +531,7 @@ int main(void) {
     test_all_iter();
     test_any_iter();
     test_applyIf_func();
+    test_byBinarySel_func();
     test_byCompose_func();
     test_byConst_func();
     test_byFlip_func();
@@ -544,6 +556,7 @@ int main(void) {
     test_last_iter();
     test_map_iter();
     test_objectAt_iter();
+    test_performSel_object();
     test_randint_random();
     test_reap_iter();
     test_replicate_iter();

@@ -30,7 +30,7 @@ static id foldl(Iter it, id ifempty, BinaryMapping f) {
 
 
 test {
-    BinaryMapping cc = bySel(@selector(stringByAppendingString:));
+    BinaryMapping cc = byBinarySel(@selector(stringByAppendingString:));
     
     ass  ( !foldl(nil, @"", cc));
     asseq( @"foobarbaz", foldl(list(@"foo", @"bar", @"baz"), @"", cc));

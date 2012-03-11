@@ -1,3 +1,5 @@
+#import "+type.h"
+
 #import <Foundation/Foundation.h>
 #include "+support.h"
 
@@ -14,6 +16,15 @@ static BOOL isKind(id obj, id class_or_classname) {
     if (!c)
         return NO;
     return [obj isKindOfClass:c];
+}
+
+/// Same as performSelector:withObject:, but inhibits a warning under ARC (so make sure that the method returns an autoreleased value).
+// (in object)
+static id performSel(id obj, SEL sel, id arg) {
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    return [obj performSelector:sel withObject:arg];
+    #pragma clang diagnostic pop
 }
 
 /// Wraps -respondsToSelector

@@ -5,11 +5,12 @@
 // (in iter)
 static BOOL any(Iter it, Predicate p) {
     if (!it)
-      return nil;
+      return NO;
     
-    for (id x in it)
+    for (id x in it) {
       if (p(x))
         return YES;
+    }
     
     return NO;
 }

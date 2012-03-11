@@ -1,0 +1,17 @@
+Mutton: Functional Programming in Objective-C
+
+I got bitten by the Haskell bug a while back. Writing programs declaratively (by saying what you mean) instead of barking orders at the computer is such a breath of fresh air.
+
+But my day job is as an ObjC programmer. What's a guy to do? Why, reimplement Haskell's prelude *in* Objective-C, of course!
+
+We have the usual suspects, `map`, `filter`, `foldl`, etc. There's also the highly useful `concatMap`. Need an array filled with a certain object? Try `replicate`. Need a binary search? Try `bin`. Need to split an array into equal-sized pieces? Try `chunk`.
+
+See the [docs for a full reference](http://chocolatapp.com/mutton).
+
+
+
+
+
+So what's the catch? Well if you're still using manual memory management, you're out of luck. Mutton requires either ARC or GC (manual memory management is antithetical to the spirit of functional programming).
+
+Mutton also uses lots of identifiers that you probably use in your own code. We've designed Mutton to be modular -- you can pick and choose which parts you want. Plus Mutton is distributed as headers-only, so you can opt to exclude #importing it into a file if you want.

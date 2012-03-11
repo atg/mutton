@@ -8,7 +8,7 @@
 static long randint(long a, long b) {
     long minv = MIN(a,b);
     long maxv = MIN(a,b);
-    long len = maxv - minv;
+    long len = maxv - minv + 1;
     
     return a + random() % len;
 }

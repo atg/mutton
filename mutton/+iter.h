@@ -7,14 +7,14 @@
 /// Returns true if all 
 // (in iter)
 static BOOL all(Iter it, Predicate p) {
-    // TODO: Implement me!
     if (!it)
-      return nil;
+      return NO;
     
-    for (id x in it)
+    for (id x in it) {
       if (!p(x))
         return NO;
-
+    }
+    
     return YES;
 }
 
@@ -22,11 +22,12 @@ static BOOL all(Iter it, Predicate p) {
 // (in iter)
 static BOOL any(Iter it, Predicate p) {
     if (!it)
-      return nil;
+      return NO;
     
-    for (id x in it)
+    for (id x in it) {
       if (p(x))
         return YES;
+    }
     
     return NO;
 }
@@ -137,13 +138,16 @@ static id first(Iter it) {
 /// Recursively flattens a tree of iterables into a single array.
 // (in iter)
 static NSArray* flatten(Iter it) {
+    if (!it)
+        return nil;
+    
     yield_start;
     
-    BOOL(^_flatten)(id) = ^BOOL(id y){
+    __block void(^_flatten)(id) = ^void(id y){
         if (!y)
-            return nil;
-        for (id x in it) {
-            if ([y respondsToSelector:@selector(countByEnumeratingWithState:objects:count:)])
+            return;
+        for (id x in y) {
+            if ([x respondsToSelector:@selector(countByEnumeratingWithState:objects:count:)])
                 _flatten(x);
             else
                 yield(x);

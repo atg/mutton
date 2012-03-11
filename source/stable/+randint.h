@@ -6,16 +6,16 @@
 static long randint(long a, long b) {
     long minv = MIN(a,b);
     long maxv = MIN(a,b);
-    long len = maxv - minv;
+    long len = maxv - minv + 1;
     
     return a + random() % len;
 }
 
 test {
     #define mut_testrandom(p) { BOOL b_ = YES; for (long i_ = 0; i_ < 500; i_++) { \
-        b_ &&= p(); \
+        b_ &= p(); \
     } ass(b_); }
-    #define mut_locinrange(v, low, high) ({ long v_ = v; v >= low && v <= high ; })
+    #define mut_locinrange(v, low, high) ({ long v_ = v; v_ >= low && v_ <= high ; })
     
     mut_testrandom(^{ return randint(10, 10) == 10; })
     mut_testrandom(^{ return randint(-10, -10) == -10; })

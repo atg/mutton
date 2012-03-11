@@ -4,14 +4,14 @@
 /// Returns true if all 
 // (in iter)
 static BOOL all(Iter it, Predicate p) {
-    // TODO: Implement me!
     if (!it)
-      return nil;
+      return NO;
     
-    for (id x in it)
+    for (id x in it) {
       if (!p(x))
         return NO;
-
+    }
+    
     return YES;
 }
 

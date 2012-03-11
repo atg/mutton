@@ -1,3 +1,4 @@
+#import "+object.h"
 #import "+type.h"
 
 #import <Foundation/Foundation.h>
@@ -9,6 +10,14 @@ static id applyIf(id x, Mapping f) {
     if (!x)
         return nil;
     return f(x);
+}
+
+/// ___
+// (in func)
+static BinaryMapping byBinarySel(SEL sel) {
+    return [^ id (id x, id y) {
+        return performSel(x, sel, y);
+    } copy];
 }
 
 /// A function h such that h(x) == f(g(x)) forall x

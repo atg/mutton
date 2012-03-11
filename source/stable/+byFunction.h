@@ -15,8 +15,7 @@ static Mapping byFunction(id (*f)(id)) {
 test {
     ass  (!byFunction(NULL));
     
-// This test passes OK, but clang a warning. Can't figure it out.
-    Mapping f = byFunction(&byConst);
+    Mapping f = byFunction((id(*)(id))&byConst);
     Mapping g = f(foo);
     id h = g(bar);
     asseq(foo, h);
