@@ -1,0 +1,10 @@
+// Sources
+//  haskell prelude
+//  underscore.js
+//  mathematica
+//  my head :)
+
+reap
+    Pass a block which accepts an argument of type "Sowing". Call "sow" each time you want to add an object to the array. Returns all the objects that sow was called with.
+    NSArray* reap(void(^body)(Sowing f));
+

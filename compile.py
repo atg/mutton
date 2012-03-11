@@ -138,7 +138,7 @@ for p in processedfiles:
       'definition': p['definition'],
       'module': p['module'],
       'afters': list(p['afters']),
-      'typesig': '(%s) -> %s' % (args, ret),
+      'typesig': '(%s) <span class="arr">&rarr;</span> %s' % (args, ret),
     }
     if p['module'] not in docjson_modules:
        docjson_modules[p['module']] = [d]

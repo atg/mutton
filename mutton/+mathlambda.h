@@ -10,4 +10,3 @@ typedef long (^ZtoZ)(long);
 
 typedef double (^RtoR)(double);
 #define lambdaR(var, body) (^ double (double var) { return body; })
-

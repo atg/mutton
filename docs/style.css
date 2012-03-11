@@ -1,57 +1,47 @@
 * {
+	font-family: Menlo, Monaco, "Lucida Console", mono;
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-size: 14px;
 }
 html {
-	font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
-}
-body {
-	width: 60%;
-	max-width: 600px;
-	margin: 0 auto;
-}
-code {
-	font-family: Menlo, Monaco, mono;
-}
-p {
-	/* For some reason, Arial looks better than Helvetica Neue */
-	font-family: Arial, Helvetica, Geneva, sans-serif;
+	background-color: hsl(0, 0%, 98%);
+	color: #333;
 }
 
-.normal {
-	font-weight: normal;
+body::before {
+	content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 }
-h3 {
-	font-family: Menlo, Monaco, mono;
+
+
+body {
+	
+	padding: 24px;
 }
 h2 {
-	text-align: right;
-	margin-top: 10px;
-	margin-bottom: -10px;
-	color: #a5a5a5;
+	display: none;
 }
-.module {
-	margin-bottom: 40px;
+h3, .typesig {
+	display: inline;
+}
+.typesig {
+	/*color: #555;*/
+}
+.typesig strong {
+	font-weight: normal;
+	/*color: black;*/
+}
+.function p.description {
+	margin-top: 4px;
+	padding-left: 8px;
+	font-size: 15px;
+	font-family: "Arial";
 }
 .function {
-	padding-left: 12px;
+	margin-top: 20px;
 	margin-bottom: 20px;
 }
-.function p {
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-.function p.typesig {
-	padding-left: 10px;
-	border-left: 4px solid #ebebeb;
-	color: #b2b2b2;
-	font-size: 13px;
-}
-.function p.typesig strong {
-	color: #656565;
-	font-weight: normal;
-}
-.module .function:nth-child(odd) {
-	background-color: #f9f9f9;
+.arr {
+	font-family: "Arial";
 }

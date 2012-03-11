@@ -94,8 +94,8 @@ takeWhile               :: (a -> Bool) -> [a] -> [a]
 dropWhile               :: (a -> Bool) -> [a] -> [a]
     NSArray* dropWhile(Iter it, Predicate p);
 span, break             :: (a -> Bool) -> [a] -> ([a],[a])
-    Tuple2 spanWith(Iter it, Predicate p);
-    Tuple2 breakWith(Iter it, Predicate p);
+    Tuple2 spanBy(Iter it, Predicate p);
+    Tuple2 breakBy(Iter it, Predicate p);
 -- lines            :: String -> [String]
 -- words            :: String -> [String]
 -- unlines          :: [String] -> String
