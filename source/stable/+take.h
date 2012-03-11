@@ -1,7 +1,7 @@
 #import "+type.h"
 #include "+support.h"
 
-/// ___
+/// Returns the given number of objects from the front of the list.
 // (in iter)
 static NSArray* take(Iter it, long n) {
     if (!it)

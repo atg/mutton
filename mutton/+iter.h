@@ -97,7 +97,7 @@ static long count(Iter it) {
     return i;
 }
 
-/// Removes the given number of objects from the array
+/// Removes the given number of objects from the front of the list.
 // (in iter)
 static NSArray* drop(Iter it, long n) {
     if (n < 0)
@@ -132,6 +132,27 @@ static id first(Iter it) {
         return obj;
     }
     return nil;
+}
+
+/// Recursively flattens a tree of iterables into a single array.
+// (in iter)
+static NSArray* flatten(Iter it) {
+    yield_start;
+    
+    BOOL(^_flatten)(id) = ^BOOL(id y){
+        if (!y)
+            return nil;
+        for (id x in it) {
+            if ([y respondsToSelector:@selector(countByEnumeratingWithState:objects:count:)])
+                _flatten(x);
+            else
+                yield(x);
+        }
+    };
+    
+    _flatten(it);
+    
+    yield_stop;
 }
 
 /// Return all the elements of a list except the last one.
@@ -241,6 +262,20 @@ static id objectAt(Iter it, long n) {
     return nil;
 }
 
+/// Allows you to "sow" values, and "reap" them at the end. Pass a block to reap that takes a single Mapping argument (conventionally named "sow"). Do some work in this block, then call sow each time you want to save a value. Reap will run your block and return the values that you sowed.
+// (in iter)
+static NSArray* reap(void(^body)(Mapping sow)) {
+    yield_start;
+    Mapping sow = ^(id x){
+        if (x)
+            yield(x);
+        return x;
+    };
+
+    body(sow);
+    yield_stop;
+}
+
 /// Build a list by repeating an element a given (non-negative) number of times.
 // (in iter)
 static NSArray* replicate(id v, long n) {
@@ -316,7 +351,7 @@ static id tail(Iter it) {
     yield_stop;
 }
 
-/// ___
+/// Returns the given number of objects from the front of the list.
 // (in iter)
 static NSArray* take(Iter it, long n) {
     if (!it)

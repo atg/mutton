@@ -1,7 +1,7 @@
 #import "+type.h"
 #include "+support.h"
 
-/// Removes the given number of objects from the array
+/// Removes the given number of objects from the front of the list.
 // (in iter)
 static NSArray* drop(Iter it, long n) {
     if (n < 0)

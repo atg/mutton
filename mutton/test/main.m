@@ -231,6 +231,32 @@ static void test_first_iter() {
 }
 
 
+#pragma mark flatten (iter)
+static void test_flatten_iter() {
+    ass  ( !flatten(nil) );
+    asseq( emptylist(), flatten(emptylist()) );
+    asseq( list(foo, bar, baz), flatten(list(foo, bar, baz)) );
+    asseq( list(foo, bar, baz, foo, bar, baz, foo, bar, baz), flatten(list(list(foo, bar, baz), emptylist(), list(foo, emptylist(), bar, baz, list(foo, bar, baz, list(emptylist()))))) ); // if THAT doesn't do it, nothing will
+}
+
+
+#pragma mark foldl (fold)
+static void test_foldl_fold() {
+    BinaryMapping cc = bySel(@selector(stringByAppendingString:));
+    
+    ass  ( !foldl(nil, @"", cc));
+    asseq( @"foobarbaz", foldl(list(@"foo", @"bar", @"baz"), @"", cc));
+    asseq( @"HELLO", foldl(emptylist(), @"HELLO", cc));
+    ass  ( !foldl(emptylist(), nil, cc));
+}
+
+
+#pragma mark foldl1 (fold)
+static void test_foldl1_fold() {
+    // No tests necessary
+}
+
+
 #pragma mark initial (iter)
 static void test_initial_iter() {
     ass  ( !initial(nil) );
@@ -305,6 +331,40 @@ static void test_objectAt_iter() {
     asseq(baz, objectAt(list(foo, bar, baz), 2) );
     ass  ( !objectAt(list(foo, bar, baz), -2) );
     ass  ( !objectAt(list(foo, bar, baz), -1) );
+}
+
+
+#pragma mark randint (random)
+static void test_randint_random() {
+    #define mut_testrandom(p) { BOOL b_ = YES; for (long i_ = 0; i_ < 500; i_++) { \
+        b_ &&= p(); \
+    } ass(b_); }
+    #define mut_locinrange(v, low, high) ({ long v_ = v; v >= low && v <= high ; })
+    
+    mut_testrandom(^{ return randint(10, 10) == 10; })
+    mut_testrandom(^{ return randint(-10, -10) == -10; })
+    mut_testrandom(^{ return randint(0, 0) == 0; })
+    
+    mut_testrandom(^{ return mut_locinrange(randint(0, 1), 0, 2); })
+    mut_testrandom(^{ return mut_locinrange(randint(1, 0), 0, 2); })
+    mut_testrandom(^{ return mut_locinrange(randint(0, -1), -1, 2); })
+    mut_testrandom(^{ return mut_locinrange(randint(-1, 0), -1, 2); })
+    mut_testrandom(^{ return mut_locinrange(randint(-1, 1), -1, 3); })
+    mut_testrandom(^{ return mut_locinrange(randint(1, -1), -1, 3); })
+
+    mut_testrandom(^{ return mut_locinrange(randint(-13, 5), -13, 19); })
+    mut_testrandom(^{ return mut_locinrange(randint(5, -13), -13, 19); })
+    
+    #undef mut_locinrange
+    #undef mut_testrandom
+}
+
+
+#pragma mark reap (iter)
+static void test_reap_iter() {
+    asseq( list(@"a", @"b", @"c"), reap(^void (Mapping sow) {
+        sow(@"a"); sow(@"b"); sow(@"c");
+    }) );
 }
 
 
@@ -474,6 +534,9 @@ int main(void) {
     test_falsy_bool();
     test_filter_iter();
     test_first_iter();
+    test_flatten_iter();
+    test_foldl_fold();
+    test_foldl1_fold();
     test_initial_iter();
     test_intersperse_iter();
     test_isKind_object();
@@ -481,6 +544,8 @@ int main(void) {
     test_last_iter();
     test_map_iter();
     test_objectAt_iter();
+    test_randint_random();
+    test_reap_iter();
     test_replicate_iter();
     test_responds_object();
     test_reverse_iter();
