@@ -394,6 +394,32 @@ static void test_take_iter() {
 }
 
 
+#pragma mark transpose (iter)
+static void test_transpose_iter() {
+  ass( !transpose(nil) );
+  
+  asseq( emptylist(), transpose(emptylist()) );
+  
+  asseq( list(list(@"a")), transpose(list(list(@"a"))) );
+  
+  asseq(
+    list(list(@"b",@"b")),
+    transpose(list(list(@"b"),list(@"b"))) );
+  
+  asseq(
+    list(list(@"a",@"a"), list(@"b",@"b"), list(@"c",@"c")),
+    transpose(list(list(@"a",@"b",@"c"), list(@"a",@"b",@"c"))) );
+  
+  asseq(
+    list(list(@"a", @"a", @"a"),
+         list(@"b", @"b", @"b"),
+         list(@"c", @"c")),
+    transpose(list(list(@"a",@"b",@"c"),
+                   list(@"a",@"b"),
+                   list(@"a",@"b",@"c"))) );
+}
+
+
 #pragma mark truthy (bool)
 static void test_truthy_bool() {
     // This hardly needs testing, does it?
@@ -461,6 +487,7 @@ int main(void) {
     test_split_iter();
     test_tail_iter();
     test_take_iter();
+    test_transpose_iter();
     test_truthy_bool();
     test_uniqued_iter();
     test_until_iter();

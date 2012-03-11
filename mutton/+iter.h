@@ -336,6 +336,43 @@ static NSArray* take(Iter it, long n) {
     yield_stop;
 }
 
+/// ___
+// (in iter)
+// (after count)
+// (after objectAt)
+static NSArray* transpose(Iter it) {
+  if (!it)
+    return nil;
+  
+  NSMutableArray* normal = [[NSMutableArray alloc] init];
+  for (id x in it)
+    [normal addObject:[NSMutableArray arrayWithArray:x]];
+  
+  yield_start;
+  
+  for (long i = 0; i <= [normal count]; i++)
+  {
+    yield([NSMutableArray array]);
+    BOOL isEmpty = YES;
+
+    for (id x in normal)
+    {
+      if ([x count] == 0)
+        continue;
+      
+      isEmpty = NO;
+      
+      [[mutton_yield_v_ lastObject] addObject:[x objectAtIndex:0]];
+      [x removeObjectAtIndex:0];
+    }
+    
+    if (isEmpty)
+      [mutton_yield_v_ removeLastObject];
+  }
+  
+  yield_stop;
+}
+
 /// Remove duplicate objects, as determined by their -hash and isEqual: (i.e., the objects are inserted into an NSSet to determine equality). O(n).
 // (in iter)
 static NSArray* uniqued(Iter it) {
