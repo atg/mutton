@@ -1,21 +1,21 @@
-# Mutton: Practical functional programming tools for ObjC
+Mutton makes ObjC more concise and less error-prone by giving it some common functional programming tools.
 
-```
-  ,-''''-.
- (.  ,.   L        ___...__
- /7} ,-`  `'-==''``        ''._
-//{                           '`.           Mutton makes ObjC more consise
-\_,X ,                         : )          and less error-prone by giving
-    7                          ;`           it some common nice functional
-    :                  ,       /            programming tools for your use.
-     \_,                \     ;
-       Y   L_    __..--':`.    L
-       |  /| ````       ;  y  J
-       [ j J            / / L ;
-       | |Y \          /_J  | |
-       L_J/_)         /_)   L_J
-      /_)               sk /_)
-```
+
+     ---------       ,-''''-.
+    | baaaaaa |     (.  ,.   L        ___...__
+     --------->     /7} ,-`  `'-==''``        ''._
+                   //{                           '`.
+                   \_,X ,                         : )
+                       7                          ;`
+                       :                  ,       /
+                        \_,                \     ;
+                          Y   L_    __..--':`.    L
+                          |  /| ````       ;  y  J
+                          [ j J            / / L ;
+                          | |Y \          /_J  | |
+                          L_J/_)         /_)   L_J
+                         /_)               sk /_)
+
 
 ## Usage
 
@@ -60,4 +60,4 @@ Oh, you mean [*"Mutton"*](http://en.wikipedia.org/wiki/Lamb_and_mutton)? It's a 
 
 Mutton is licensed under the WTFPL.
 
-ASCII by cv666@cleveland.Freenet.Edu (Gary G. Nass)
+ASCII by [Gary G. Nass](mailto:cv666@cleveland.freenet.edu).
