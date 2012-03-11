@@ -2,6 +2,46 @@
 #include "+support.h"
 
 
+#pragma mark all (iter)
+static void test_all_iter() {
+    ass( !all(nil, 0) );
+    
+    ass( all(emptylist(), ^ BOOL (id x) { return x == foo; }) );
+    ass( all(list(foo) , ^ BOOL (id x) { return x == foo; }) );
+    ass( all(list(foo,foo), ^ BOOL (id x) { return x == foo; }) );
+    ass( all(list(foo, foo, foo), ^ BOOL (id x) { return x == foo; }) );
+
+    ass( !all(list(foo, bar), ^ BOOL (id x) { return x == foo; }) );
+    ass( !all(list(bar, foo), ^ BOOL (id x) { return x == foo; }) );
+
+    ass( !all(list(foo, foo, bar), ^ BOOL (id x) { return x == foo; }) );
+    ass( !all(list(foo, bar, foo), ^ BOOL (id x) { return x == foo; }) );
+    ass( !all(list(bar, foo, foo), ^ BOOL (id x) { return x == foo; }) );
+}
+
+
+#pragma mark any (iter)
+static void test_any_iter() {
+    ass( !any(nil, 0) );
+    
+    ass( any(list(foo, bar, baz), ^ BOOL (id x) { return x == foo; }) );
+    ass( any(list(foo, bar, baz), ^ BOOL (id x) { return x == bar; }) );
+    ass( any(list(baz, foo, bar, baz), ^ BOOL (id x) { return [x isEqual:baz]; }) );
+    
+    ass( any(list(foo, bar), ^ BOOL (id x) { return x == foo; }) );
+    ass( any(list(bar, foo), ^ BOOL (id x) { return x == foo; }) );
+    
+    ass( any(list(foo, foo, bar), ^ BOOL (id x) { return x == bar; }) );
+    ass( any(list(foo, bar, foo), ^ BOOL (id x) { return x == bar; }) );
+    ass( any(list(bar, foo, foo), ^ BOOL (id x) { return x == bar; }) );
+    
+    ass( !any(emptylist(),         ^ BOOL (id x) { return x == foo; }) );
+    ass( !any(list(foo),           ^ BOOL (id x) { return x == baz; }) );
+    ass( !any(list(foo, bar),      ^ BOOL (id x) { return x == baz; }) );
+    ass( !any(list(foo, bar, bar), ^ BOOL (id x) { return x == baz; }) );
+}
+
+
 #pragma mark applyIf (func)
 static void test_applyIf_func() {
     ass  (!applyIf(nil, nil));
@@ -57,6 +97,21 @@ static void test_byIdentity_func() {
 }
 
 
+#pragma mark compact (iter)
+static void test_compact_iter() {
+    ass( !compact(nil) );
+    
+    asseq( emptylist(), compact(emptylist())    );
+    asseq( emptylist(), compact(list(@""))      );
+    asseq( emptylist(), compact(list(@"", @"")) );
+    
+    asseq( list(foo), compact(list(@"", foo)) );
+    asseq( list(foo), compact(list(foo, @"")) );
+
+    asseq( list(foo, bar, baz), compact(list(foo, @"", bar, @"", baz)) );
+}
+
+
 #pragma mark concat (iter)
 static void test_concat_iter() {
     NSArray* a = list(foo, bar, baz);
@@ -74,6 +129,28 @@ static void test_concat_iter() {
 #pragma mark concatMap (iter)
 static void test_concatMap_iter() {
     ass  ( !concatMap(nil, nil) );
+}
+
+
+#pragma mark contains (iter)
+static void test_contains_iter() {
+    ass( !contains(nil, 0) );
+    
+    ass( contains(list(foo, bar, baz), foo) );
+    ass( contains(list(foo, bar, baz), bar) );
+    ass( contains(list(baz, foo, bar, baz), baz) );
+    
+    ass( contains(list(foo, bar), foo) );
+    ass( contains(list(bar, foo), foo) );
+    
+    ass( contains(list(foo, foo, bar), bar) );
+    ass( contains(list(foo, bar, foo), bar) );
+    ass( contains(list(bar, foo, foo), bar) );
+    
+    ass( !contains(emptylist(),         foo) );
+    ass( !contains(list(foo),           baz) );
+    ass( !contains(list(foo, bar),      baz) );
+    ass( !contains(list(foo, bar, bar), baz) );
 }
 
 
@@ -317,6 +394,32 @@ static void test_take_iter() {
 }
 
 
+#pragma mark transpose (iter)
+static void test_transpose_iter() {
+  ass( !transpose(nil) );
+  
+  asseq( emptylist(), transpose(emptylist()) );
+  
+  asseq( list(list(@"a")), transpose(list(list(@"a"))) );
+  
+  asseq(
+    list(list(@"b",@"b")),
+    transpose(list(list(@"b"),list(@"b"))) );
+  
+  asseq(
+    list(list(@"a",@"a"), list(@"b",@"b"), list(@"c",@"c")),
+    transpose(list(list(@"a",@"b",@"c"), list(@"a",@"b",@"c"))) );
+  
+  asseq(
+    list(list(@"a", @"a", @"a"),
+         list(@"b", @"b", @"b"),
+         list(@"c", @"c")),
+    transpose(list(list(@"a",@"b",@"c"),
+                   list(@"a",@"b"),
+                   list(@"a",@"b",@"c"))) );
+}
+
+
 #pragma mark truthy (bool)
 static void test_truthy_bool() {
     // This hardly needs testing, does it?
@@ -354,14 +457,18 @@ static void test_until_iter() {
 #pragma mark main
 int main(void) {
   @autoreleasepool {
+    test_all_iter();
+    test_any_iter();
     test_applyIf_func();
     test_byCompose_func();
     test_byConst_func();
     test_byFlip_func();
     test_byFunction_func();
     test_byIdentity_func();
+    test_compact_iter();
     test_concat_iter();
     test_concatMap_iter();
+    test_contains_iter();
     test_count_iter();
     test_drop_iter();
     test_falsy_bool();
@@ -380,6 +487,7 @@ int main(void) {
     test_split_iter();
     test_tail_iter();
     test_take_iter();
+    test_transpose_iter();
     test_truthy_bool();
     test_uniqued_iter();
     test_until_iter();

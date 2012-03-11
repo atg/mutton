@@ -4,6 +4,46 @@
 #import <Foundation/Foundation.h>
 #include "+support.h"
 
+/// Returns true if all 
+// (in iter)
+static BOOL all(Iter it, Predicate p) {
+    // TODO: Implement me!
+    if (!it)
+      return nil;
+    
+    for (id x in it)
+      if (!p(x))
+        return NO;
+
+    return YES;
+}
+
+/// Returns true if the predicate validates to any of the elements, false otherwise.
+// (in iter)
+static BOOL any(Iter it, Predicate p) {
+    if (!it)
+      return nil;
+    
+    for (id x in it)
+      if (p(x))
+        return YES;
+    
+    return NO;
+}
+
+/// Keep only the elements of a list for with the predicate is true.
+// (in iter)
+static NSArray* filter(Iter it, Predicate p) {
+    if (!it)
+        return nil;
+    yield_start;
+    for (id x in it) {
+        if (p(x))
+            yield(x);
+    }
+    yield_stop;
+}
+
 /// Glue together an array of arrays (or iterable of iterables) to make one big array.
 // (in iter)
 static NSArray* concat(Iter it) {
@@ -36,6 +76,12 @@ static NSArray* map(Iter it, Mapping f) {
             yield(y);
     } 
     yield_stop;
+}
+
+/// Tells if the array contains the object.
+// (in iter)
+static BOOL contains(Iter it, id x) {
+  return any(it, ^ BOOL (id y) { return [y isEqual:x]; });
 }
 
 /// Find the number of objects in an array or iterable.
@@ -72,17 +118,11 @@ static NSArray* drop(Iter it, long n) {
     yield_stop;
 }
 
-/// Keep only the elements of a list for with the predicate is true.
+/// Removes falsy values from the array.
 // (in iter)
-static NSArray* filter(Iter it, Predicate p) {
-    if (!it)
-        return nil;
-    yield_start;
-    for (id x in it) {
-        if (p(x))
-            yield(x);
-    }
-    yield_stop;
+// (after filter)
+static NSArray* compact(Iter it) {
+    return filter(it, ^ BOOL (id x) { return truthy(x); });
 }
 
 /// Find the first object of the iterable, or nil if it's empty.
@@ -294,6 +334,41 @@ static NSArray* take(Iter it, long n) {
     }
 
     yield_stop;
+}
+
+/// Transposes the rows and columns of the matrix
+// (in iter)
+static NSArray* transpose(Iter it) {
+  if (!it)
+    return nil;
+  
+  NSMutableArray* normal = [[NSMutableArray alloc] init];
+  for (id x in it)
+    [normal addObject:[NSMutableArray arrayWithArray:x]];
+  
+  yield_start;
+  
+  for (long i = 0; i <= [normal count]; i++)
+  {
+    yield([NSMutableArray array]);
+    BOOL isEmpty = YES;
+
+    for (id x in normal)
+    {
+      if ([x count] == 0)
+        continue;
+      
+      isEmpty = NO;
+      
+      [[mutton_yield_v_ lastObject] addObject:[x objectAtIndex:0]];
+      [x removeObjectAtIndex:0];
+    }
+    
+    if (isEmpty)
+      [mutton_yield_v_ removeLastObject];
+  }
+  
+  yield_stop;
 }
 
 /// Remove duplicate objects, as determined by their -hash and isEqual: (i.e., the objects are inserted into an NSSet to determine equality). O(n).

@@ -32,7 +32,7 @@ static NSArray* chunk(Iter it, long n) {
 
 
 test {
-    ass  ( !chunk() );
+    // ass  ( !chunk() );
     ass  ( !chunk(list(foo), 0) );
     asseq( emptylist(), chunk(emptylist(), 10) );
     asseq( list(list(foo)), chunk(list(foo), 1) );
