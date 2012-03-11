@@ -149,3 +149,7 @@ f = open('docs/content.js', 'w')
 f.write('var alldocs = ' + json.dumps(docjson_modules) + ' ;')
 
 # pprint(allfiles)
+
+subprocess.check_output(['python', 'development/wishlist.py'])
+
+
