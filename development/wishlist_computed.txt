@@ -27,12 +27,9 @@ DESIRED functions
   foldr1
   forth
   fst
-  group
-  groupBy
   hasKey
   ins
   insBy
-  intercalate
   intersection
   invoke
   maximum
@@ -41,7 +38,6 @@ DESIRED functions
   medianBy
   minimum
   minimumBy
-  nest
   nestList
   partition
   randelement
@@ -90,7 +86,10 @@ UNSTABLE functions
   compareThrough
   curry
   enumerate
+  group
+  groupBy
   inner
+  intercalate
   outer
   pluck
   sample
@@ -128,6 +127,7 @@ STABLE functions
   iter
   last
   map
+  nest
   objectAt
   performSel
   randint

@@ -239,6 +239,21 @@ static NSArray* concatMap(Iter it, Iter(^f)(id)) {
     return concat(map(it, f)); // Ahhhh the joys of functional programming at last
 }
 
+/// ___
+// (in iter)
+static id nest(id x, long loops, Mapping f) {
+    if (!f)
+      return nil;
+    
+    if (loops < 0)
+      [NSException raise:@"Negative nesting index" format:@"foo of %d is invalid", loops];
+    
+    if (loops == 0)
+      return x;
+
+    return f( nest(x, loops-1, f) );
+}
+
 /// Like objectAtIndex: but works on general iterables, and returns nil if the index is out of bounds (instead of an exception).
 // (in iter)
 static id objectAt(Iter it, long n) {

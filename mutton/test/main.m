@@ -321,6 +321,21 @@ static void test_map_iter() {
 }
 
 
+#pragma mark nest (iter)
+static void test_nest_iter() {
+  Mapping appends = ^ id (id x) { return [x stringByAppendingString: @"a"]; };
+
+  // uncomment next line to throw exception
+  // ass( nest(@"a", appends,  -1) );
+
+  ass( !nest(nil, 0, appends) );
+  ass( !nest(@"a", 0, nil) );
+  
+  asseq( @"", nest(@"", 0, appends));
+  asseq( @"aaa", nest(@"", 3, appends));
+}
+
+
 #pragma mark objectAt (iter)
 static void test_objectAt_iter() {
     ass  ( !objectAt(nil, 0) );
@@ -582,6 +597,7 @@ int main(void) {
     test_iter_iter();
     test_last_iter();
     test_map_iter();
+    test_nest_iter();
     test_objectAt_iter();
     test_performSel_object();
     test_randint_random();
