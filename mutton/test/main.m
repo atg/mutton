@@ -262,6 +262,23 @@ static void test_foldl1_fold() {
 }
 
 
+#pragma mark groupBy (iter)
+static void test_groupBy_iter() {
+//  NSString* myString = @"Mississippi";
+//  
+//  NSMutableArray *characters = [[NSMutableArray alloc] initWithCapacity:[myString length]];
+//  for (int i=0; i < [myString length]; i++) {
+//      NSString *ichar  = [NSString stringWithFormat:@"%c", [myString characterAtIndex:i]];
+//      [characters addObject:ichar];
+//  } 
+
+  BinaryPredicate ident = ^ BOOL (id x, id y) { return [x isEqualToString:y]; };
+  asseq(
+    list( list(@"M"),list(@"i"),list(@"s",@"s"),list(@"i"),list(@"s",@"s"),list(@"i"),list(@"p",@"p"),list(@"i") ),
+    groupBy([@"M-i-s-s-i-s-s-i-p-p-i" componentsSeparatedByString:@"-"], ident) );
+}
+
+
 #pragma mark initial (iter)
 static void test_initial_iter() {
     ass  ( !initial(nil) );
@@ -599,6 +616,7 @@ int main(void) {
     test_flatten_iter();
     test_foldl_fold();
     test_foldl1_fold();
+    test_groupBy_iter();
     test_initial_iter();
     test_intercalate_iter();
     test_intersperse_iter();

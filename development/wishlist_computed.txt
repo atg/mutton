@@ -87,7 +87,6 @@ UNSTABLE functions
   curry
   enumerate
   group
-  groupBy
   inner
   outer
   pluck
@@ -120,6 +119,7 @@ STABLE functions
   flatten
   foldl
   foldl1
+  groupBy
   initial
   intercalate
   intersperse

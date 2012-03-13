@@ -159,6 +159,28 @@ static NSArray* flatten(Iter it) {
     yield_stop;
 }
 
+/// Groups similar objects using supplied predicate.
+// (in iter)
+static NSArray* groupBy(Iter it, BinaryPredicate eq) {
+  if (!it)
+    return nil;
+
+  yield_start;
+
+  for (id x in it) {
+
+    if (eq(x, [[mutton_yield_v_ lastObject] lastObject]))
+    {
+      [[mutton_yield_v_ lastObject] addObject:x];
+    } else {
+      yield([NSMutableArray arrayWithObject:x]);
+    }
+
+  }
+
+  yield_stop;
+}
+
 /// Return all the elements of a list except the last one.
 // (in iter)
 static id initial(Iter it) {
