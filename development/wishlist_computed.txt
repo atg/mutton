@@ -89,7 +89,6 @@ UNSTABLE functions
   group
   groupBy
   inner
-  intercalate
   outer
   pluck
   sample
@@ -122,6 +121,7 @@ STABLE functions
   foldl
   foldl1
   initial
+  intercalate
   intersperse
   isKind
   iter

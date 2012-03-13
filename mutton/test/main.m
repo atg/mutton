@@ -272,6 +272,14 @@ static void test_initial_iter() {
 }
 
 
+#pragma mark intercalate (iter)
+static void test_intercalate_iter() {
+    asseq( list(foo, baz, bar), intercalate(list(list(foo), list(bar)), list(baz)) );
+    asseq( list(foo, baz, bar, baz, foo, baz, bar)
+         , intercalate(list(list(foo), list(bar), list(foo), list(bar)), list(baz)) );
+}
+
+
 #pragma mark intersperse (iter)
 static void test_intersperse_iter() {
     ass  (! intersperse(nil, foo) );
@@ -329,10 +337,10 @@ static void test_nest_iter() {
   // ass( nest(@"a", appends,  -1) );
 
   ass( !nest(nil, 0, appends) );
-  ass( !nest(@"a", 0, nil) );
+  ass( !nest(@"a", 0, nil)    );
   
-  asseq( @"", nest(@"", 0, appends));
-  asseq( @"aaa", nest(@"", 3, appends));
+  asseq( @"", nest(@"", 0, appends)    );
+  asseq( @"aaa", nest(@"", 3, appends) );
 }
 
 
@@ -592,6 +600,7 @@ int main(void) {
     test_foldl_fold();
     test_foldl1_fold();
     test_initial_iter();
+    test_intercalate_iter();
     test_intersperse_iter();
     test_isKind_object();
     test_iter_iter();

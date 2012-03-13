@@ -197,6 +197,14 @@ static NSArray* intersperse(Iter it, id glue) {
     yield_stop;
 }
 
+/// intercalate a b ==> concat $ intersperse a b
+// (in iter)
+// (after intersperse)
+// (after concat)
+static NSArray* intercalate(Iter a, Iter b) {
+    return concat(intersperse(a, b));
+}
+
 /// Convert a general purpose iterable to an NSArray*
 // (in iter)
 static NSArray* iter(Iter it) {
@@ -239,7 +247,7 @@ static NSArray* concatMap(Iter it, Iter(^f)(id)) {
     return concat(map(it, f)); // Ahhhh the joys of functional programming at last
 }
 
-/// ___
+/// Nests function calls such that nest(x, 3, f) ==> f(f(f(x)))
 // (in iter)
 static id nest(id x, long loops, Mapping f) {
     if (!f)
