@@ -3,9 +3,10 @@
 
 /// Returns a comparator that compares by two comparators in turn
 // (in sorting)
+// (after compareDefault)
 static NSComparator compareBoth(NSComparator cmp1, NSComparator cmp2) {
-    cmp1 = [cmp1 copy] ?: compareDefault();
-    cmp2 = [cmp2 copy] ?: compareDefault();
+    cmp1 = (NSComparator)[cmp1 copy] ?: compareDefault();
+    cmp2 = (NSComparator)[cmp2 copy] ?: compareDefault();
     
     return [^ NSComparisonResult (id a, id b) {
         return cmp1(a, b) ?: cmp2(a, b);

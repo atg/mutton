@@ -3,7 +3,8 @@
 
 /// Sort an iterable using a comparator
 // (in sorting)
-static NSArray sortBy(Iter it, NSComparator cmp) {
+// (after compareDefault)
+static NSArray* sortBy(Iter it, NSComparator cmp) {
     if (!it)
         return nil;
     if (cmp == NULL)
@@ -12,7 +13,7 @@ static NSArray sortBy(Iter it, NSComparator cmp) {
     NSArray* jt = iter(it);
     
     // Easy peasy
-    return [jt sortedArrayWithOptions:NSStableSort usingComparator:cmp];
+    return [jt sortedArrayWithOptions:NSSortStable usingComparator:cmp];
 }
 
 

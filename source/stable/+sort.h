@@ -3,6 +3,7 @@
 
 /// Stably sorts an iterable, using compare:
 // (in sorting)
+// (after sortBy)
 static NSArray* sort(Iter it) {
     return sortBy(it, NULL);
 }

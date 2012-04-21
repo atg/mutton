@@ -159,6 +159,28 @@ static NSArray* flatten(Iter it) {
     yield_stop;
 }
 
+/// Groups similar objects using supplied predicate.
+// (in iter)
+static NSArray* groupBy(Iter it, BinaryPredicate eq) {
+  if (!it)
+    return nil;
+
+  yield_start;
+
+  for (id x in it) {
+
+    if (eq(x, [[mutton_yield_v_ lastObject] lastObject]))
+    {
+      [[mutton_yield_v_ lastObject] addObject:x];
+    } else {
+      yield([NSMutableArray arrayWithObject:x]);
+    }
+
+  }
+
+  yield_stop;
+}
+
 /// Return all the elements of a list except the last one.
 // (in iter)
 static id initial(Iter it) {
@@ -195,6 +217,14 @@ static NSArray* intersperse(Iter it, id glue) {
         [mutton_yield_v_ removeLastObject];
 
     yield_stop;
+}
+
+/// intercalate a b ==> concat $ intersperse a b
+// (in iter)
+// (after intersperse)
+// (after concat)
+static NSArray* intercalate(Iter a, Iter b) {
+    return concat(intersperse(a, b));
 }
 
 /// Convert a general purpose iterable to an NSArray*
@@ -237,6 +267,21 @@ static NSArray* concatMap(Iter it, Iter(^f)(id)) {
     if (!it)
         return nil;
     return concat(map(it, f)); // Ahhhh the joys of functional programming at last
+}
+
+/// Nests function calls such that nest(x, 3, f) ==> f(f(f(x)))
+// (in iter)
+static id nest(id x, long loops, Mapping f) {
+    if (!f)
+      return nil;
+    
+    if (loops < 0)
+      [NSException raise:@"Negative nesting index" format:@"foo of %d is invalid", loops];
+    
+    if (loops == 0)
+      return x;
+
+    return f( nest(x, loops-1, f) );
 }
 
 /// Like objectAtIndex: but works on general iterables, and returns nil if the index is out of bounds (instead of an exception).
@@ -433,6 +478,29 @@ static id until(Predicate p, Mapping f, id x) {
     while (!p(x))
         x = f(x);
     return x;
+}
+
+/// Zips both arrays using the BinaryMapping. That's what.
+// (in iter)
+// (after count)
+// (after objectAt)
+static NSArray* zipWith(Iter a, Iter b, BinaryMapping f) {
+    if (!a || !b)
+      return nil;
+
+    long tempa = count(a);
+    long tempb = count(b);
+    
+    long count = (tempa > tempb) ? tempb : tempa;
+    
+    yield_start;
+    
+    for (long i=0; i < count; ++i)
+    {
+      yield( f(objectAt(a, i), objectAt(b, i)) );
+    }
+    
+    yield_stop;
 }
 
 #include "+unsupport.h"

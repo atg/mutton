@@ -117,6 +117,43 @@ static void test_compact_iter() {
 }
 
 
+#pragma mark compareAddress (sorting)
+static void test_compareAddress_sorting() {
+    ass  (compareAddress()(@"abc", @"abc") == NSOrderedSame);
+    ass  (compareAddress()([@"abc" mutableCopy], [@"abc" mutableCopy]) != NSOrderedSame);
+}
+
+
+#pragma mark compareBoth (sorting)
+static void test_compareBoth_sorting() {
+    // TODO: Add tests to me!
+}
+
+
+#pragma mark compareDefault (sorting)
+static void test_compareDefault_sorting() {
+    // TODO: Add tests to me!
+}
+
+
+#pragma mark compareReverse (sorting)
+static void test_compareReverse_sorting() {
+    // TODO: Add tests to me!
+}
+
+
+#pragma mark compareSelector (sorting)
+static void test_compareSelector_sorting() {
+    // TODO: Add tests to me!
+}
+
+
+#pragma mark compareThrough (sorting)
+static void test_compareThrough_sorting() {
+    // TODO: Add tests to me!
+}
+
+
 #pragma mark concat (iter)
 static void test_concat_iter() {
     NSArray* a = list(foo, bar, baz);
@@ -199,6 +236,16 @@ static void test_drop_iter() {
 }
 
 
+#pragma mark equals (object)
+static void test_equals_object() {
+    ass  ( equals(nil, nil) );
+    ass  ( !equals(@"", nil) );
+    ass  ( !equals(nil, @"") );
+    ass  ( equals(@"", @"") );
+    ass  ( equals(@"hello", [@"hello" mutableCopy]) );
+}
+
+
 #pragma mark falsy (bool)
 static void test_falsy_bool() {
     ass  ( falsy(nil) );
@@ -262,6 +309,23 @@ static void test_foldl1_fold() {
 }
 
 
+#pragma mark groupBy (iter)
+static void test_groupBy_iter() {
+//  NSString* myString = @"Mississippi";
+//  
+//  NSMutableArray *characters = [[NSMutableArray alloc] initWithCapacity:[myString length]];
+//  for (int i=0; i < [myString length]; i++) {
+//      NSString *ichar  = [NSString stringWithFormat:@"%c", [myString characterAtIndex:i]];
+//      [characters addObject:ichar];
+//  } 
+
+  BinaryPredicate ident = ^ BOOL (id x, id y) { return [x isEqualToString:y]; };
+  asseq(
+    list( list(@"M"),list(@"i"),list(@"s",@"s"),list(@"i"),list(@"s",@"s"),list(@"i"),list(@"p",@"p"),list(@"i") ),
+    groupBy([@"M-i-s-s-i-s-s-i-p-p-i" componentsSeparatedByString:@"-"], ident) );
+}
+
+
 #pragma mark initial (iter)
 static void test_initial_iter() {
     ass  ( !initial(nil) );
@@ -269,6 +333,14 @@ static void test_initial_iter() {
     asseq(emptylist(), initial(list(foo)) );
     asseq(list(foo), initial(list(foo, bar)) );
     asseq(list(foo, bar), initial(list(foo, bar, baz)) );
+}
+
+
+#pragma mark intercalate (iter)
+static void test_intercalate_iter() {
+    asseq( list(foo, baz, bar), intercalate(list(list(foo), list(bar)), list(baz)) );
+    asseq( list(foo, baz, bar, baz, foo, baz, bar)
+         , intercalate(list(list(foo), list(bar), list(foo), list(bar)), list(baz)) );
 }
 
 
@@ -318,6 +390,21 @@ static void test_map_iter() {
     ass  ( !map(nil, muttoupper) );
     asseq( list(@"FOO", @"BAR", @"WOBBLE"),
         map(list(@"foo", @"bar", @"wobble"), muttoupper) );
+}
+
+
+#pragma mark nest (iter)
+static void test_nest_iter() {
+  Mapping appends = ^ id (id x) { return [x stringByAppendingString: @"a"]; };
+
+  // uncomment next line to throw exception
+  // ass( nest(@"a", appends,  -1) );
+
+  ass( !nest(nil, 0, appends) );
+  ass( !nest(@"a", 0, nil)    );
+  
+  asseq( @"", nest(@"", 0, appends)    );
+  asseq( @"aaa", nest(@"", 3, appends) );
 }
 
 
@@ -405,6 +492,22 @@ static void test_reverse_iter() {
     asseq(list(foo), reverse(list(foo)) );
     asseq(list(bar, foo), reverse(list(foo, bar)) );
     asseq(list(baz, bar, foo), reverse(list(foo, bar, baz)) );
+}
+
+
+#pragma mark sort (sorting)
+static void test_sort_sorting() {
+    
+}
+
+
+#pragma mark sortBy (sorting)
+static void test_sortBy_sorting() {
+    ass  ( !sortBy(nil, NULL) );
+    asseq( emptylist(), sortBy(emptylist(), NULL) );
+    asseq( list(@"a"), sortBy(list(@"a"), NULL) );
+    asseq( list(@"a", @"b", @"c"), sortBy(list(@"c", @"a", @"b"), NULL) );
+    asseq( list(@"c", @"b", @"a"), sortBy(list(@"c", @"a", @"b"), compareReverse(NULL)) );
 }
 
 
@@ -525,6 +628,33 @@ static void test_until_iter() {
 }
 
 
+#pragma mark zipWith (iter)
+static void test_zipWith_iter() {
+    BinaryMapping plussing = ^id(id x, id y) { return list(x,y); };
+    
+    ass( !zipWith(emptylist(), nil, plussing) );
+    ass( !zipWith(nil, emptylist(), plussing) );
+    
+    asseq( emptylist(), zipWith(emptylist(), emptylist(), plussing) );
+    
+    asseq(
+      list(list(@"a",@"a")),
+      zipWith(list(@"a"), list(@"a"), plussing) );
+
+    asseq(
+      list(list(@"a",@"c"), list(@"b",@"d")),
+      zipWith(list(@"a",@"b"), list(@"c",@"d"), plussing) );
+
+    asseq(
+      list(list(@"a",@"d"), list(@"b",@"e")),
+      zipWith(list(@"a",@"b",@"c"), list(@"d",@"e"), plussing) );
+
+    asseq(
+      list(list(@"a",@"d"), list(@"b",@"e"), list(@"c",@"f")),
+      zipWith(list(@"a",@"b",@"c"), list(@"d",@"e",@"f"), plussing) );
+}
+
+
 #pragma mark main
 int main(void) {
   @autoreleasepool {
@@ -538,23 +668,33 @@ int main(void) {
     test_byFunction_func();
     test_byIdentity_func();
     test_compact_iter();
+    test_compareAddress_sorting();
+    test_compareBoth_sorting();
+    test_compareDefault_sorting();
+    test_compareReverse_sorting();
+    test_compareSelector_sorting();
+    test_compareThrough_sorting();
     test_concat_iter();
     test_concatMap_iter();
     test_contains_iter();
     test_count_iter();
     test_drop_iter();
+    test_equals_object();
     test_falsy_bool();
     test_filter_iter();
     test_first_iter();
     test_flatten_iter();
     test_foldl_fold();
     test_foldl1_fold();
+    test_groupBy_iter();
     test_initial_iter();
+    test_intercalate_iter();
     test_intersperse_iter();
     test_isKind_object();
     test_iter_iter();
     test_last_iter();
     test_map_iter();
+    test_nest_iter();
     test_objectAt_iter();
     test_performSel_object();
     test_randint_random();
@@ -562,6 +702,8 @@ int main(void) {
     test_replicate_iter();
     test_responds_object();
     test_reverse_iter();
+    test_sort_sorting();
+    test_sortBy_sorting();
     test_split_iter();
     test_tail_iter();
     test_take_iter();
@@ -569,6 +711,7 @@ int main(void) {
     test_truthy_bool();
     test_uniqued_iter();
     test_until_iter();
+    test_zipWith_iter();
   }
   int failed = mutton_failed_assertion_count;
   int allassertions = mutton_all_assertion_count;

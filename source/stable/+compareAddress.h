@@ -14,8 +14,8 @@ static NSComparator compareAddress() {
 }
 
 test {
-    // TODO: Add tests to me!
-    // Noooo idea how to test this
+    ass  (compareAddress()(@"abc", @"abc") == NSOrderedSame);
+    ass  (compareAddress()([@"abc" mutableCopy], [@"abc" mutableCopy]) != NSOrderedSame);
 }
 
 #include "+unsupport.h"

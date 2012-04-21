@@ -23,7 +23,3 @@
 #define to_uint16(x) ((uint16_t)(x))
 #define to_uint32(x) ((uint32_t)(x))
 #define to_uint64(x) ((uint64_t)(x))
-
-
-*to_int(p + x)
-*((int)(a + b))

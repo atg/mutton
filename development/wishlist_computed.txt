@@ -33,13 +33,10 @@ DESIRED functions
   fst
   gather
   gatherBy
-  group
-  groupBy
   hasKey
   inits
   ins
   insBy
-  intercalate
   intersect
   intersectBy
   intersection
@@ -58,7 +55,6 @@ DESIRED functions
   medianBy
   minimum
   minimumBy
-  nest
   nestList
   padLeft
   padRight
@@ -105,7 +101,6 @@ DESIRED functions
   unzipWith
   without
   zip
-  zipWith
 
 UNSTABLE functions
   any
@@ -113,22 +108,14 @@ UNSTABLE functions
   chunk
   commonest
   commonestBy
-  compareAddress
-  compareBoth
-  compareDefault
-  compareReverse
-  compareSelector
-  compareThrough
   curry
   enumerate
-  equals
+  group
   inner
   outer
   pluck
   sample
   shuffle
-  sort
-  sortBy
   uncurry
   uniquedBy
 
@@ -143,23 +130,33 @@ STABLE functions
   byFunction
   byIdentity
   compact
+  compareAddress
+  compareBoth
+  compareDefault
+  compareReverse
+  compareSelector
+  compareThrough
   concat
   concatMap
   contains
   count
   drop
+  equals
   falsy
   filter
   first
   flatten
   foldl
   foldl1
+  groupBy
   initial
+  intercalate
   intersperse
   isKind
   iter
   last
   map
+  nest
   objectAt
   performSel
   randint
@@ -167,6 +164,8 @@ STABLE functions
   replicate
   responds
   reverse
+  sort
+  sortBy
   split
   tail
   take
@@ -174,4 +173,5 @@ STABLE functions
   truthy
   uniqued
   until
+  zipWith
 

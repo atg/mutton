@@ -3,13 +3,17 @@
 
 /// Determines if two (possibly nil) objects are equal. This differs from -isEqual: because it considers the case where both objects are nil
 // (in object)
-static id equals(id a, id b) {
+static BOOL equals(id a, id b) {
     return a == b || [a isEqual:b];
 }
 
 
 test {
-    // TODO: Add tests to me!
+    ass  ( equals(nil, nil) );
+    ass  ( !equals(@"", nil) );
+    ass  ( !equals(nil, @"") );
+    ass  ( equals(@"", @"") );
+    ass  ( equals(@"hello", [@"hello" mutableCopy]) );
 }
 
 #include "+unsupport.h"
