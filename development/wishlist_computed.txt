@@ -1,4 +1,5 @@
 DESIRED functions
+  accumulate
   bin
   binBy
   binaryBySel
@@ -13,6 +14,9 @@ DESIRED functions
   byThrottle
   comparePredicate
   compareSel
+  difference
+  differenceAll
+  differences
   dropWhile
   dropr
   elemIndex
@@ -27,14 +31,27 @@ DESIRED functions
   foldr1
   forth
   fst
+  gather
+  gatherBy
   group
   groupBy
   hasKey
+  inits
   ins
   insBy
   intercalate
+  intersect
+  intersectBy
   intersection
+  intersectionAll
   invoke
+  isPrefixOf
+  isProperSubset
+  isProperSuperset
+  isSubset
+  isSuffixOf
+  isSuperset
+  mapAt
   maximum
   maximumBy
   median
@@ -43,12 +60,17 @@ DESIRED functions
   minimumBy
   nest
   nestList
+  padLeft
+  padRight
   partition
   randelement
   randfloat
   randseed
+  remove
+  removeBy
   repeatEvery
   rest
+  riffle
   rotateLeft
   rotateRight
   runs
@@ -57,17 +79,25 @@ DESIRED functions
   scanl1
   scanr
   scanr1
+  setize
   seventh
   sixth
   snd
   sortWith
   spanWith
   splitAt
+  symmetricDifference
+  symmetricDifferenceAll
+  table
+  tails
   takeWhile
   taker
+  tally
+  tallyBy
   thrd
   total
   union
+  unionAll
   unstableSort
   unstableSortBy
   unstableSortWith
@@ -91,6 +121,7 @@ UNSTABLE functions
   compareThrough
   curry
   enumerate
+  equals
   inner
   outer
   pluck
