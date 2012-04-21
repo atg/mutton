@@ -8,5 +8,6 @@
 #import "+iter.h"
 #import "+object.h"
 #import "+random.h"
+#import "+convert.h"
 #import "+mathlambda.h"
 #import "+type.h"

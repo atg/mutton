@@ -114,7 +114,7 @@ zip              :: [a] -> [b] -> [(a,b)]
     NSArray* zip(Iter a, Iter b);
 -- zip3             :: [a] -> [b] -> [c] -> [(a,b,c)]
 zipWith          :: (a->b->c) -> [a]->[b]->[c]
-    NSArray* zipWith(Iter it, BinaryMapping f);
+    NSArray* zipWith(Iter a, Iter b, BinaryMapping f);
 -- zipWith3         :: (a->b->c->d) -> [a]->[b]->[c]->[d]
 unzip            :: [(a,b)] -> ([a],[b])
     Tuple2 unzip(Iter it);

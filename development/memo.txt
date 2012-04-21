@@ -1,0 +1,23 @@
+#define memoized(arg, f) static NSCache* mut_memoization_cache##__COUNTER__; if (!mut_memoization_cache##__COUNTER__) mut_memoization_cache##__COUNTER__ = [[NSCache alloc] init]; return mut_memoize(mut_memoization_cache##__COUNTER__, arg, f);
+
+id mut_memoize(NSCache* cache, id arg, Mapping f) {
+    
+    id v = [cache valueForKey:arg];
+    if (v)
+        return v;
+    
+    
+    NSTimeInterval t0 = [NSDate timeIntervalSinceReferenceDate];
+    v = f(arg);
+    NSTimeInterval t = [NSDate timeIntervalSinceReferenceDate];
+    if (v) {
+        if (t - t0 > 0.005) // Hardly seems worth it otherwise
+            [cache setValue:v forKey:arg];
+    }
+    return v;
+}
+
+memoized(x, ^ id (x) {
+    
+    
+});
