@@ -428,7 +428,8 @@ static void test_objectAt_iter() {
 
 #pragma mark performSel (object)
 static void test_performSel_object() {
-    // TODO: Add tests to me!
+    ass  ( !performSel(nil, @selector(doesntExist), nil) );
+    asseq( performSel(@"abc", @selector(stringByAppendingString:), @"def"), @"abcdef" );
 }
 
 

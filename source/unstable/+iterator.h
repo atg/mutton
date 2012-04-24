@@ -1,12 +1,10 @@
 #import "+type.h"
 #include "+support.h"
 
-/// ___
+// Makes an iterator by repeating a function until it returns nil (which may be never)
 // (in iter)
-static ___ group(___) {
+static Iter iterator(id (^f)(void)) {
     // TODO: Implement me!
-    // Sort by -hash
-    // Group into runs
 }
 
 

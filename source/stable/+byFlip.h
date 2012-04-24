@@ -1,7 +1,7 @@
 #import "+type.h"
 #include "+support.h"
 
-/// A function g such that g(x, y) == f(y, x) forall x, y
+/// A function g such that <code>g(x, y) == f(y, x) forall x, y</code>.
 // (in func)
 static BinaryMapping byFlip(BinaryMapping f) {
     f = [f copy];

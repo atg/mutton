@@ -1,5 +1,8 @@
 #ifndef MUTTON_SUPPORT
 #define MUTTON_SUPPORT
+
+#import <objc/message.h>
+
 #define test static void mutton_private_test_(void)
 #define foo @"foo"
 #define bar [NSNumber numberWithInteger:42]

@@ -7,7 +7,7 @@ static NSComparator compareSelector(SEL sel) {
     sel = sel ?: @selector(compare:);
     
     return [^ NSComparisonResult (id a, id b) {
-        return (NSComparisonResult)[a performSelector:sel withObject:b];
+        return (NSComparisonResult)objc_msgSend(a, sel, b);
     } copy];
 }
 

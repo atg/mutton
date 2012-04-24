@@ -65,7 +65,6 @@ DESIRED functions
   remove
   removeBy
   repeatEvery
-  rest
   riffle
   rotateLeft
   rotateRight
@@ -112,6 +111,7 @@ UNSTABLE functions
   enumerate
   group
   inner
+  iterator
   outer
   pluck
   sample

@@ -12,7 +12,8 @@ static id performSel(id obj, SEL sel, id arg) {
 
 
 test {
-    // TODO: Add tests to me!
+    ass  ( !performSel(nil, @selector(doesntExist), nil) );
+    asseq( performSel(@"abc", @selector(stringByAppendingString:), @"def"), @"abcdef" );
 }
 
 #include "+unsupport.h"

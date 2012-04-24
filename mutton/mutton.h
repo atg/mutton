@@ -10,5 +10,6 @@
 #import "+random.h"
 #import "+sorting.h"
 #import "+convert.h"
+#import "+funcsupport.h"
 #import "+mathlambda.h"
 #import "+type.h"
